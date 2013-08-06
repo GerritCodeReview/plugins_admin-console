@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38b474af_48e65f65",
+        "filename": "src/main/java/com/google/gerrit/plugins/ShowAccountCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000253
+      },
+      "writtenOn": "2013-08-06T14:53:44Z",
+      "side": 1,
+      "message": "Could make this final",
+      "revId": "8947f64b395a5300dabd743c935ca7b7a9d8ee65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98cba03c_0bf05d15",
+        "filename": "src/main/java/com/google/gerrit/plugins/ShowAccountCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000253
+      },
+      "writtenOn": "2013-08-06T14:53:44Z",
+      "side": 1,
+      "message": "I\u0027d move this to inside the run() method",
+      "revId": "8947f64b395a5300dabd743c935ca7b7a9d8ee65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38b474af_68eb232a",
+        "filename": "src/main/java/com/google/gerrit/plugins/ShowAccountCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000253
+      },
+      "writtenOn": "2013-08-06T14:53:44Z",
+      "side": 1,
+      "message": "[nit] Gerrit\u0027s typical coding standard is to put a blank line above methods (above line 64 and the other methods below).",
+      "revId": "8947f64b395a5300dabd743c935ca7b7a9d8ee65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98cba03c_2bf51906",
+        "filename": "src/main/java/com/google/gerrit/plugins/ShowAccountCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000253
+      },
+      "writtenOn": "2013-08-06T14:53:44Z",
+      "side": 1,
+      "message": "If this is empty, don\u0027t print out the line above and add \u0027None\u0027 output?",
+      "revId": "8947f64b395a5300dabd743c935ca7b7a9d8ee65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78ba6c9d_aa002f14",
+        "filename": "src/main/java/com/google/gerrit/plugins/ShowAccountCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000253
+      },
+      "writtenOn": "2013-08-06T14:53:44Z",
+      "side": 1,
+      "message": "In the future, it might be nice to treat filterGroups as a regex or something similar so you have more flexibility on filtering groups.  For now, maybe mention in the filterGroups help text that it must be a substring of the group name?",
+      "revId": "8947f64b395a5300dabd743c935ca7b7a9d8ee65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8cea449_ec240bc0",
+        "filename": "src/main/java/com/google/gerrit/plugins/ShowAccountCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000253
+      },
+      "writtenOn": "2013-08-06T14:53:44Z",
+      "side": 1,
+      "message": "I\u0027d make this private static (and add a blank line above)",
+      "revId": "8947f64b395a5300dabd743c935ca7b7a9d8ee65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98cba03c_cbf9f500",
+        "filename": "src/main/java/com/google/gerrit/plugins/ShowAccountCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000253
+      },
+      "writtenOn": "2013-08-06T14:53:44Z",
+      "side": 1,
+      "message": "[nit] I believe the Gerrit coding standard puts constructors above methods",
+      "revId": "8947f64b395a5300dabd743c935ca7b7a9d8ee65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98cba03c_ebf63110",
+        "filename": "src/main/resources/Documentation/cmd-show-account.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000253
+      },
+      "writtenOn": "2013-08-06T14:53:44Z",
+      "side": 1,
+      "message": "Ah, I see you already have regex in mind",
+      "revId": "8947f64b395a5300dabd743c935ca7b7a9d8ee65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
