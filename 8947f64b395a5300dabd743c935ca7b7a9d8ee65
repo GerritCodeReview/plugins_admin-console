@@ -87,6 +87,24 @@
     },
     {
       "key": {
+        "uuid": "38b474af_e8f63310",
+        "filename": "src/main/java/com/google/gerrit/plugins/ShowAccountCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1011812
+      },
+      "writtenOn": "2013-08-06T19:01:53Z",
+      "side": 1,
+      "message": "I agree.  I was more interested in implementing that once we (hopefully) have a web-ui for this, since I believe currently escaping slashes, etc, would be a bit confusing due to the ssh command eating the first slash.  However if there\u0027s much demand for it, we can certainly implement it soon.",
+      "parentUuid": "78ba6c9d_aa002f14",
+      "revId": "8947f64b395a5300dabd743c935ca7b7a9d8ee65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8cea449_ec240bc0",
         "filename": "src/main/java/com/google/gerrit/plugins/ShowAccountCommand.java",
         "patchSetId": 1
