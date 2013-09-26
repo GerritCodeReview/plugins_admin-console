@@ -13,6 +13,7 @@
 // limitations under the License.
 
 package com.google.gerrit.plugins;
+
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,12 +24,13 @@ import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
+import com.google.gerrit.common.data.GlobalCapability;
+import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.Account.Id;
 import com.google.gerrit.reviewdb.client.AccountExternalId;
 import com.google.gerrit.reviewdb.client.AccountSshKey;
 import com.google.gerrit.reviewdb.server.ReviewDb;
-import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.server.account.AccountResource;
@@ -36,12 +38,13 @@ import com.google.gerrit.server.account.GetGroups;
 import com.google.gerrit.server.group.GroupJson.GroupInfo;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
-import com.google.gwtorm.server.ResultSet;
+import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-@CommandMetaData(name="show-account", descr="Displays user information")
+@RequiresCapability(GlobalCapability.ADMINISTRATE_SERVER)
+@CommandMetaData(name = "show-account", descr = "Displays user information")
 public final class ShowAccountCommand extends SshCommand {
 
   @Argument(usage = "User information to find: LastName,\\ Firstname,  email@address.com, account id or an user name.  Be sure to double-escape spaces, for example: \"show-account Last,\\\\ First\"")
@@ -56,16 +59,17 @@ public final class ShowAccountCommand extends SshCommand {
   @Option(name = "--show-keys", usage = "show user's public keys?")
   private boolean showKeys = false;
 
-  final CurrentUser currentUser;
   final AccountResolver accountResolver;
   private final SchemaFactory<ReviewDb> schema;
   private final Provider<GetGroups> accountGetGroups;
   private final IdentifiedUser.GenericFactory userFactory;
 
   @Inject
-  ShowAccountCommand(final CurrentUser cu, AccountResolver ar, final Provider<GetGroups> accountGetGroups, final IdentifiedUser.GenericFactory userFactory, SchemaFactory<ReviewDb> schema)
-      throws ConfigInvalidException, IOException {
-    currentUser = cu;
+  ShowAccountCommand(AccountResolver ar,
+      final Provider<GetGroups> accountGetGroups,
+      final IdentifiedUser.GenericFactory userFactory,
+      SchemaFactory<ReviewDb> schema) throws ConfigInvalidException,
+      IOException {
     accountResolver = ar;
     this.accountGetGroups = accountGetGroups;
     this.userFactory = userFactory;
@@ -73,30 +77,29 @@ public final class ShowAccountCommand extends SshCommand {
   }
 
   @Override
-  public void run() throws UnloggedFailure, Failure, Exception {
+  public void run() throws UnloggedFailure, OrmException {
     Account account;
-    if (!currentUser.getCapabilities().canAdministrateServer()) {
-      stdout.println("You must be a Gerrit Administrator to run this command.  Goodbye");
-      return;
-    }
 
     if (name.isEmpty()) {
-      stdout.print("You need to tell me who to find:  LastName,\\ Firstname, email@address.com, account id or an user name.  Be sure to double-escape spaces, for example: \"show-account Last,\\\\ First\"");
-      return;
+      throw new UnloggedFailure(1,
+          "You need to tell me who to find:  LastName,\\\\ Firstname, email@address.com, account id or an user name.  "
+              + "Be sure to double-escape spaces, for example: \"show-account Last,\\\\ First\"");
     }
 
     Set<Id> idList = accountResolver.findAll(name);
     if (idList.isEmpty()) {
-      stdout.println("No accounts found for your query: \"" + name + "\"");
-      stdout.println("Tip: Try double-escaping spaces, for example: \"show-account Last,\\\\ First\"");
-      return;
-    }
-    else {
-      stdout.println("Found " + idList.size() + " result" + (idList.size() > 1 ? "s" : "") + ": for query: \"" + name + "\"");
+      throw new UnloggedFailure(1,
+          "No accounts found for your query: \""
+              + name
+              + "\""
+              + " Tip: Try double-escaping spaces, for example: \"show-account Last,\\\\ First\"");
+    } else {
+      stdout.println("Found " + idList.size() + " result"
+          + (idList.size() > 1 ? "s" : "") + ": for query: \"" + name + "\"");
       stdout.println();
     }
 
-    for (Id id: idList) {
+    for (Id id : idList) {
       account = accountResolver.find(id.toString());
       stdout.println("Full name:         " + account.getFullName());
       stdout.println("Account Id:        " + id.toString());
@@ -109,26 +112,28 @@ public final class ShowAccountCommand extends SshCommand {
 
       stdout.println("");
       stdout.println("External Ids:");
-      stdout.println(String.format("%-50s %s", "Email Address:", "External Id:"));
-      for (AccountExternalId accountExternalId : db.accountExternalIds().byAccount(account.getId())) {
+      stdout.println(String
+          .format("%-50s %s", "Email Address:", "External Id:"));
+      for (AccountExternalId accountExternalId : db.accountExternalIds()
+          .byAccount(account.getId())) {
         stdout.println(String.format("%-50s %s",
-            (accountExternalId.getEmailAddress() == null ? "" : accountExternalId.getEmailAddress()),
-            accountExternalId.getExternalId()));
+            (accountExternalId.getEmailAddress() == null ? ""
+                : accountExternalId.getEmailAddress()), accountExternalId
+                .getExternalId()));
       }
 
       if (showKeys) {
         stdout.println("");
         stdout.println("Public Keys:");
-        List<AccountSshKey> sshKeys = db.accountSshKeys().byAccount(account.getId()).toList();
-        if (sshKeys == null || sshKeys.isEmpty()){
+        List<AccountSshKey> sshKeys =
+            db.accountSshKeys().byAccount(account.getId()).toList();
+        if (sshKeys == null || sshKeys.isEmpty()) {
           stdout.println("None");
-        }
-        else{
+        } else {
           stdout.println(String.format("%-9s %s", "Status:", "Key:"));
-          for (AccountSshKey sshKey : sshKeys ) {
-            stdout.println(String.format("%-9s %s",
-                (sshKey.isValid() ? "Active" : "Inactive"),
-                sshKey.getSshPublicKey()));
+          for (AccountSshKey sshKey : sshKeys) {
+            stdout.println(String.format("%-9s %s", (sshKey.isValid()
+                ? "Active" : "Inactive"), sshKey.getSshPublicKey()));
           }
         }
       }
@@ -137,12 +142,15 @@ public final class ShowAccountCommand extends SshCommand {
 
       if (showGroups) {
         stdout.println();
-        stdout.println("Member of groups" + (filterGroups == null ? "" : " (Filtering on \"" + filterGroups + "\")") + ":");
-        List<GroupInfo> groupInfos = accountGetGroups.get().apply(
-            new AccountResource(userFactory.create(id)));
+        stdout.println("Member of groups"
+            + (filterGroups == null ? "" : " (Filtering on \"" + filterGroups
+                + "\")") + ":");
+        List<GroupInfo> groupInfos =
+            accountGetGroups.get().apply(
+                new AccountResource(userFactory.create(id)));
 
         Collections.sort(groupInfos, new CustomComparator());
-        for (GroupInfo groupInfo: groupInfos) {
+        for (GroupInfo groupInfo : groupInfos) {
           if (null == filterGroups) {
             stdout.println(groupInfo.name);
           }
