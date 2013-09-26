@@ -81,7 +81,8 @@ public final class ShowAccountCommand extends SshCommand {
     }
 
     if (name.isEmpty()) {
-      stdout.print("You need to tell me who to find:  LastName,\\ Firstname, email@address.com, account id or an user name.  Be sure to double-escape spaces, for example: \"show-account Last,\\\\ First\"");
+      stdout.println("You need to tell me who to find:  LastName,\\ Firstname, email@address.com, account id or an user name.  " 
+                  + "Be sure to double-escape spaces, for example: \"show-account Last,\\\\ First\"");
       return;
     }
 

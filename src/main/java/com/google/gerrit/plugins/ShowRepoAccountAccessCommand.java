@@ -1,0 +1,183 @@
+// Copyright (C) 2012 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package com.google.gerrit.plugins;
+
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.eclipse.jgit.errors.ConfigInvalidException;
+import org.eclipse.jgit.errors.RepositoryNotFoundException;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.Option;
+
+import com.google.gerrit.common.data.AccessSection;
+import com.google.gerrit.common.data.Permission;
+import com.google.gerrit.common.data.PermissionRule;
+import com.google.gerrit.reviewdb.client.Account;
+import com.google.gerrit.reviewdb.client.Account.Id;
+import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.IdentifiedUser;
+import com.google.gerrit.server.account.AccountResolver;
+import com.google.gerrit.server.account.AccountResource;
+import com.google.gerrit.server.account.GetGroups;
+import com.google.gerrit.server.git.MetaDataUpdate;
+import com.google.gerrit.server.git.ProjectConfig;
+import com.google.gerrit.server.group.GroupJson.GroupInfo;
+import com.google.gerrit.sshd.CommandMetaData;
+import com.google.gerrit.sshd.SshCommand;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+
+@CommandMetaData(name = "show-repo-account-access", descr = "Displays user's access on a specific repository")
+public final class ShowRepoAccountAccessCommand extends SshCommand {
+
+  @Argument(usage = "project to show access for?")
+  private String projectName = "";
+  
+  @Option(name = "--user", usage = "User information to find: LastName,\\ Firstname,  email@address.com, account id or an user name. "
+      + "Be sure to double-escape spaces, for example: \"show-repo-account-access All-Projects --user Last,\\\\ First\"")
+  private String name = "";
+  
+  @Option(name = "-w", usage = "display without line width truncation")
+  private boolean wide;
+  
+  @Inject
+  ShowRepoAccountAccessCommand(final CurrentUser currentUser, 
+      final MetaDataUpdate.Server metaDataUpdateFactory,
+      final Provider<GetGroups> accountGetGroups, AccountResolver accountResolver,
+      final IdentifiedUser.GenericFactory userFactory)
+      throws ConfigInvalidException, IOException {
+    this.currentUser = currentUser;
+    this.metaDataUpdateFactory = metaDataUpdateFactory;
+    this.accountGetGroups = accountGetGroups;
+    this.accountResolver = accountResolver;
+    this.userFactory = userFactory;
+  }
+  
+  private final CurrentUser currentUser;
+  private final MetaDataUpdate.Server metaDataUpdateFactory;
+  private final AccountResolver accountResolver;
+  private final Provider<GetGroups> accountGetGroups;
+  private final IdentifiedUser.GenericFactory userFactory;
+  private int columns = 80;
+  private int permissionGroupWidth;
+                    
+  @Override
+  public void run() throws UnloggedFailure, Failure, Exception {
+    Account account;
+    //space indented Strings to be used as format for String.format() later
+    String sectionNameFormatter = "  %-25s\n";
+    String ruleNameFormatter = "    %-15s\n ";
+    String permissionNameFormatter = "      %5s %9s %s\n";
+   
+    Boolean userHasPermissionsInSection = false;
+    Boolean userHasPermissionsInProject = false;
+    
+    if (!currentUser.getCapabilities().canAdministrateServer()) {
+      stdout.println("You must be a Gerrit Administrator to run this command.  Goodbye");
+      return;
+    }
+
+    if (projectName.isEmpty()) {
+      stdout.println("Please specify a project to show access for");
+      return;
+    }
+                         
+    if (name.isEmpty()) {
+      stdout.println("You need to tell me who to find:  LastName,\\ Firstname, email@address.com, account id or an user name.  " 
+                    + "Be sure to double-escape spaces, for example: \"show-repo-account-access All-Projects --user Last,\\\\ First\"");
+      return;
+    }
+    
+    Set<Id> idList = accountResolver.findAll(name);
+    if (idList.isEmpty()) {
+      stdout.println("No accounts found for your query: \"" + name + "\"");
+      stdout.println("Tip: Try double-escaping spaces, for example: \"--user Last,\\\\ First\"");
+      return;
+    }
+    final Project.NameKey nameKey = new Project.NameKey(projectName);
+    
+    permissionGroupWidth = wide ? Integer.MAX_VALUE : columns - 9 - 5 - 9;
+    
+    for (Id id : idList) {
+      userHasPermissionsInProject = false;
+      account = accountResolver.find(id.toString());
+      stdout.println("Full name:         " + account.getFullName());
+      // Need to know what groups the user is in.  This is not a great solution, but it does work.
+      List<GroupInfo> groupInfos =
+          accountGetGroups.get().apply(
+              new AccountResource(userFactory.create(id)));
+      HashSet<String> groupHash = new HashSet<String>();
+
+      for (GroupInfo groupInfo : groupInfos) {
+        groupHash.add(groupInfo.name);
+      }
+      ProjectConfig config;
+      
+      try {
+        MetaDataUpdate md = metaDataUpdateFactory.create(nameKey);
+        config = ProjectConfig.read(md);
+
+        for (AccessSection accessSection : config.getAccessSections()) {
+          StringBuilder sb = new StringBuilder();
+          sb.append((String.format(sectionNameFormatter,
+              accessSection.getName().toString())));
+          // This is a solution to prevent displaying a section heading unless the user has permissions for it
+          // not the best solution, but I haven't been able to find "Is user a member of this group" based on the information I have 
+          // in a more efficient manner yet. 
+          userHasPermissionsInSection = false;
+          for (Permission permission : accessSection.getPermissions()) {
+            
+            for (PermissionRule rule : permission.getRules()) {
+              
+              if (groupHash.contains(rule.getGroup().getName())) {
+                sb.append(String.format(ruleNameFormatter,
+                    permission.getName()));
+                sb.append(String.format(permissionNameFormatter,
+                    (rule.getMin() != rule.getMax()) ? "" + rule.getMin()
+                          + " " + rule.getMax() : rule.getAction(),
+                    (permission.getExclusiveGroup() ? "EXCLUSIVE" : ""),
+                    format(rule.getGroup().getName())));
+                userHasPermissionsInSection = true;
+              }
+            }
+          }
+          if (userHasPermissionsInSection) {
+            stdout.print(sb.toString());
+            
+            userHasPermissionsInProject = true;
+          }
+        }
+      } catch (RepositoryNotFoundException e) {
+        stdout.println("Repository not found");
+        return;
+      }
+      
+      if (!userHasPermissionsInProject) {
+        stdout.println("  No access found for this user on this repository");
+      }
+    }
+  }
+  private String format(final String s) {
+    if (s.length() < permissionGroupWidth) {
+      return s;
+    } else {
+      return s.substring(0, permissionGroupWidth);
+    }
+  }
+}

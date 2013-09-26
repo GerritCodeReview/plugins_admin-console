@@ -1,4 +1,4 @@
-admin-console show-account
+shoadmin-console show-account
 ================
 
 NAME
@@ -53,20 +53,20 @@ EXAMPLES
 
 Find a user named Foo
 
->     $ ssh -p 29418 review.example.com admin-console show-user Foo
+>     $ ssh -p 29418 review.example.com admin-console show-account Foo
 
 Find a user with email foo@bar.com
 
->     $ ssh -p 29418 review.example.com admin-console show-user foo@bar.com
+>     $ ssh -p 29418 review.example.com admin-console show-account foo@bar.com
 
 Find a user named Foo Bar
 
->     $ ssh -p 29418 review.example.com admin-console show-user Bar,\\\\ Foo
+>     $ ssh -p 29418 review.example.com admin-console show-account Bar,\\\\ Foo
 
 Find a user named Foo and show all groups the user is a member of
 
->     $ ssh -p 29418 review.example.com admin-console show-user Foo --show-groups
+>     $ ssh -p 29418 review.example.com admin-console show-account Foo --show-groups
 
 Find a user named Foo and show all groups containing "baz" that the user is a member of
 
->     $ ssh -p 29418 review.example.com admin-console show-user Foo --show-groups --filter-groups baz
+>     $ ssh -p 29418 review.example.com admin-console show-account Foo --show-groups --filter-groups baz
