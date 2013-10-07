@@ -151,7 +151,8 @@ public final class ShowAccountCommand extends SshCommand {
 
         Collections.sort(groupInfos, new CustomComparator());
         for (GroupInfo groupInfo : groupInfos) {
-          if (null == filterGroups) {
+          if (null == filterGroups || groupInfo.name.toLowerCase().contains(filterGroups.toLowerCase
+              ())) {
             stdout.println(groupInfo.name);
           }
         }
