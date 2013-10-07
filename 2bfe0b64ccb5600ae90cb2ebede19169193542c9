@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81e5f1f4_7b071f2e",
+        "filename": "src/main/java/com/google/gerrit/plugins/ShowAccountCommand.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-10-07T14:36:18Z",
+      "side": 1,
+      "message": "That has changed in Gerrit 2.8. You need the core scope here, otherwise you define a new plugin owned capability: \"admin-console-administrateServer\". That\u0027s probably not what you want.\n\n @RequiresCapability(GlobalCapability.ADMINISTRATE_SERVER, scope \u003d CapabilityScope.CORE)\n\nCheck the documentation [1].\n\n[1] https://gerrit-review.googlesource.com/Documentation/dev-plugins.html#capabilities",
+      "revId": "2bfe0b64ccb5600ae90cb2ebede19169193542c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81e5f1f4_9b1b0b87",
+        "filename": "src/main/java/com/google/gerrit/plugins/ShowRepoAccessCommand.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-10-07T14:36:18Z",
+      "side": 1,
+      "message": "same",
+      "revId": "2bfe0b64ccb5600ae90cb2ebede19169193542c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81e5f1f4_bb18c78a",
+        "filename": "src/main/java/com/google/gerrit/plugins/ShowRepoAccountAccessCommand.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-10-07T14:36:18Z",
+      "side": 1,
+      "message": "same",
+      "revId": "2bfe0b64ccb5600ae90cb2ebede19169193542c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
