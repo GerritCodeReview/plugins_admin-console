@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a1c11554_74f0080f",
+        "filename": "src/main/java/com/google/gerrit/plugins/ShowAccountCommand.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1011812
+      },
+      "writtenOn": "2013-10-07T15:29:29Z",
+      "side": 1,
+      "message": "Thanks for the heads up! I need to get a 2.8 branch set up for this soon, I\u0027ll keep that in mind :)",
+      "parentUuid": "81e5f1f4_7b071f2e",
+      "revId": "2bfe0b64ccb5600ae90cb2ebede19169193542c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81e5f1f4_9b1b0b87",
         "filename": "src/main/java/com/google/gerrit/plugins/ShowRepoAccessCommand.java",
         "patchSetId": 3
