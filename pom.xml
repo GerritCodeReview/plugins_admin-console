@@ -19,7 +19,7 @@ limitations under the License.
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.google.gerrit.plugins</groupId>
+  <groupId>com.googlesource.gerrit.plugins</groupId>
   <artifactId>admin-console</artifactId>
   <packaging>jar</packaging>
   <version>2.8.1</version>
@@ -38,7 +38,7 @@ limitations under the License.
         <configuration>
           <archive>
             <manifestEntries>
-              <Gerrit-SshModule>com.google.gerrit.plugins.AdminConsoleCommandModule</Gerrit-SshModule>
+              <Gerrit-SshModule>com.googlesource.gerrit.plugins.adminconsole.AdminConsoleCommandModule</Gerrit-SshModule>
 
               <Implementation-Vendor>Gerrit Code Review</Implementation-Vendor>
               <Implementation-URL>http://code.google.com/p/gerrit/</Implementation-URL>
