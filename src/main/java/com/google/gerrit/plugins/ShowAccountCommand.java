@@ -44,7 +44,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 @RequiresCapability(GlobalCapability.ADMINISTRATE_SERVER)
-@CommandMetaData(name = "show-account", descr = "Displays user information")
+@CommandMetaData(name = "show-account", description = "Displays user information")
 public final class ShowAccountCommand extends SshCommand {
 
   @Argument(usage = "User information to find: LastName,\\ Firstname,  email@address.com, account id or an user name.  Be sure to double-escape spaces, for example: \"show-account Last,\\\\ First\"")
