@@ -45,7 +45,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 @RequiresCapability(GlobalCapability.ADMINISTRATE_SERVER)
-@CommandMetaData(name = "show-repo-account-access", descr = "Displays user's access on a specific repository")
+@CommandMetaData(name = "show-repo-account-access", description = "Displays user's access on a specific repository")
 public final class ShowRepoAccountAccessCommand extends SshCommand {
 
   @Argument(usage = "project to show access for?")
