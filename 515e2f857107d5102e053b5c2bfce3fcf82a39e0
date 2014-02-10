@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4fe089af_aff4b9fa",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ListUsersCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1012612
+      },
+      "writtenOn": "2014-02-10T20:11:18Z",
+      "side": 1,
+      "message": "In the 2.9 API, this should be iterateAllEntities(), no?",
+      "range": {
+        "startLine": 40,
+        "startChar": 48,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "515e2f857107d5102e053b5c2bfce3fcf82a39e0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
