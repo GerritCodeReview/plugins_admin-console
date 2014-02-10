@@ -48,6 +48,7 @@ limitations under the License.
 
               <Gerrit-ApiType>${Gerrit-ApiType}</Gerrit-ApiType>
               <Gerrit-ApiVersion>${Gerrit-ApiVersion}</Gerrit-ApiVersion>
+              <Gerrit-PluginName>admin-console</Gerrit-PluginName>
             </manifestEntries>
           </archive>
         </configuration>
