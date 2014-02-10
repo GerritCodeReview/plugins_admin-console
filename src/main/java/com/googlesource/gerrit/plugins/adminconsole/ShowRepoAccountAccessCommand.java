@@ -28,6 +28,7 @@ import com.google.gerrit.common.data.AccessSection;
 import com.google.gerrit.common.data.GlobalCapability;
 import com.google.gerrit.common.data.Permission;
 import com.google.gerrit.common.data.PermissionRule;
+import com.google.gerrit.extensions.annotations.CapabilityScope;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.Account.Id;
@@ -44,7 +45,7 @@ import com.google.gerrit.sshd.SshCommand;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-@RequiresCapability(GlobalCapability.ADMINISTRATE_SERVER)
+@RequiresCapability(value=GlobalCapability.ADMINISTRATE_SERVER, scope=CapabilityScope.CORE)
 @CommandMetaData(name = "show-repo-account-access", description = "Displays user's access on a specific repository")
 public final class ShowRepoAccountAccessCommand extends SshCommand {
 
