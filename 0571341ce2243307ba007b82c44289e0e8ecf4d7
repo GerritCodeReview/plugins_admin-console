@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef793db6_d41bdc86",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ListUsersCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-02-10T08:51:18Z",
+      "side": 1,
+      "message": "You need to add core context here, otherwise the check is going to be done against adminconsole-administrateServer and would always fail. Well it probably worked for you because the check respects administrateServer anyway. It is documented in [1]:\n\nCapability scope was introduced to differentiate between plugin-owned capabilities and core capabilities. Per default the scope of the @RequiresCapability annotation is CapabilityScope.CONTEXT, that means:\n\nwhen @RequiresCapability is used within a plugin the scope of the capability is assumed to be that plugin.\nIf @RequiresCapability is used within the core Gerrit Code Review server (and thus is outside of a plugin) the scope is the core server and will use the GlobalCapability known to Gerrit Code Review server.\nIf a plugin needs to use a core capability name (e.g. \"administrateServer\") this can be specified by setting scope \u003d CapabilityScope.CORE:\n\n@RequiresCapability(value \u003d \"administrateServer\", scope \u003d\n    CapabilityScope.CORE)\n\n[1] https://gerrit-review.googlesource.com/Documentation/dev-plugins.html#capabilities",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 57
+      },
+      "revId": "0571341ce2243307ba007b82c44289e0e8ecf4d7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
