@@ -70,6 +70,47 @@
       "revId": "515e2f857107d5102e053b5c2bfce3fcf82a39e0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f39cd00_60e95222",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ListUsersCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-02-11T10:58:06Z",
+      "side": 1,
+      "message": "I\u0027m OK with this.  We can change it to use `all` in a follow-up change.",
+      "parentUuid": "6fdb8d06_30026825",
+      "range": {
+        "startLine": 40,
+        "startChar": 48,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "515e2f857107d5102e053b5c2bfce3fcf82a39e0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f39cd00_c0edbe2f",
+        "filename": "src/main/resources/Documentation/cmd-ls-users.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-02-11T10:58:06Z",
+      "side": 1,
+      "message": "Mention that they are not ordered?",
+      "revId": "515e2f857107d5102e053b5c2bfce3fcf82a39e0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
