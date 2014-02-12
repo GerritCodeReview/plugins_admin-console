@@ -148,7 +148,7 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
               if (groupHash.contains(rule.getGroup().getName())) {
                 sb.append(String.format(ruleNameFormatter, permission.getName()));
                 sb.append(String.format(permissionNameFormatter,
-                    (rule.getMin() != rule.getMax()) ? "" + rule.getMin() + " "
+                    (!rule.getMin().equals(rule.getMax())) ? "" + rule.getMin() + " "
                         + rule.getMax() : rule.getAction(),
                     (permission.getExclusiveGroup() ? "EXCLUSIVE" : ""),
                     format(rule.getGroup().getName())));
