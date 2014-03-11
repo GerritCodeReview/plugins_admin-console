@@ -37,7 +37,7 @@ public final class ListUsersCommand extends SshCommand {
 
   @Override
   protected void run() throws UnloggedFailure, Failure, Exception {
-    ResultSet<Account> accounts = db.accounts().iterateAllEntities();
+    ResultSet<Account> accounts = db.accounts().all();
     for (Account account : accounts) {
       String out = new StringBuilder()
         .append(account.getId().toString())
