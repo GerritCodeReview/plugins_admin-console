@@ -102,6 +102,9 @@ public final class ShowAccountCommand extends SshCommand {
 
     for (Id id : idList) {
       account = accountResolver.find(id.toString());
+      if (account == null) {
+        throw new UnloggedFailure("Account " + id.toString() + " does not exist.");
+      }
       stdout.println("Full name:         " + account.getFullName());
       stdout.println("Account Id:        " + id.toString());
       stdout.println("Preferred Email:   " + account.getPreferredEmail());
@@ -111,35 +114,37 @@ public final class ShowAccountCommand extends SshCommand {
 
       final ReviewDb db = schema.open();
 
-      stdout.println("");
-      stdout.println("External Ids:");
-      stdout.println(String
-          .format("%-50s %s", "Email Address:", "External Id:"));
-      for (AccountExternalId accountExternalId : db.accountExternalIds()
-          .byAccount(account.getId())) {
-        stdout.println(String.format("%-50s %s",
-            (accountExternalId.getEmailAddress() == null ? ""
-                : accountExternalId.getEmailAddress()), accountExternalId
-                .getExternalId()));
-      }
-
-      if (showKeys) {
+      try {
         stdout.println("");
-        stdout.println("Public Keys:");
-        List<AccountSshKey> sshKeys =
-            db.accountSshKeys().byAccount(account.getId()).toList();
-        if (sshKeys == null || sshKeys.isEmpty()) {
-          stdout.println("None");
-        } else {
-          stdout.println(String.format("%-9s %s", "Status:", "Key:"));
-          for (AccountSshKey sshKey : sshKeys) {
-            stdout.println(String.format("%-9s %s", (sshKey.isValid()
-                ? "Active" : "Inactive"), sshKey.getSshPublicKey()));
+        stdout.println("External Ids:");
+        stdout.println(String
+            .format("%-50s %s", "Email Address:", "External Id:"));
+        for (AccountExternalId accountExternalId : db.accountExternalIds()
+            .byAccount(account.getId())) {
+          stdout.println(String.format("%-50s %s",
+              (accountExternalId.getEmailAddress() == null ? ""
+                  : accountExternalId.getEmailAddress()), accountExternalId
+                  .getExternalId()));
+        }
+
+        if (showKeys) {
+          stdout.println("");
+          stdout.println("Public Keys:");
+          List<AccountSshKey> sshKeys =
+              db.accountSshKeys().byAccount(account.getId()).toList();
+          if (sshKeys == null || sshKeys.isEmpty()) {
+            stdout.println("None");
+          } else {
+            stdout.println(String.format("%-9s %s", "Status:", "Key:"));
+            for (AccountSshKey sshKey : sshKeys) {
+              stdout.println(String.format("%-9s %s", (sshKey.isValid()
+                  ? "Active" : "Inactive"), sshKey.getSshPublicKey()));
+            }
           }
         }
+      } finally {
+        db.close();
       }
-
-      db.close();
 
       if (showGroups) {
         stdout.println();
