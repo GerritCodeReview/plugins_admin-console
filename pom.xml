@@ -25,7 +25,7 @@ limitations under the License.
   <version>2.9</version>
   <properties>
     <Gerrit-ApiType>plugin</Gerrit-ApiType>
-    <Gerrit-ApiVersion>2.9-SNAPSHOT</Gerrit-ApiVersion>
+    <Gerrit-ApiVersion>${project.version}</Gerrit-ApiVersion>
      <jettyVersion>8.1.7.v20120910</jettyVersion>
   </properties>
 
