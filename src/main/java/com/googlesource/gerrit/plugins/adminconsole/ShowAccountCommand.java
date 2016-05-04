@@ -28,6 +28,8 @@ import com.google.gerrit.common.data.GlobalCapability;
 import com.google.gerrit.extensions.annotations.CapabilityScope;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.extensions.common.GroupInfo;
+import com.google.gerrit.extensions.common.SshKeyInfo;
+import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.Account.Id;
 import com.google.gerrit.reviewdb.client.AccountExternalId;
@@ -64,17 +66,19 @@ public final class ShowAccountCommand extends SshCommand {
   private final SchemaFactory<ReviewDb> schema;
   private final Provider<GetGroups> accountGetGroups;
   private final IdentifiedUser.GenericFactory userFactory;
+  private final Provider<com.google.gerrit.server.account.GetSshKeys> getSshKeys;
 
   @Inject
   ShowAccountCommand(AccountResolver ar,
       final Provider<GetGroups> accountGetGroups,
       final IdentifiedUser.GenericFactory userFactory,
-      SchemaFactory<ReviewDb> schema) throws ConfigInvalidException,
-      IOException {
+      final Provider<com.google.gerrit.server.account.GetSshKeys> getSshKeys,
+      SchemaFactory<ReviewDb> schema) {
     accountResolver = ar;
     this.accountGetGroups = accountGetGroups;
     this.userFactory = userFactory;
     this.schema = schema;
+    this.getSshKeys = getSshKeys;
   }
 
   @Override
@@ -112,9 +116,8 @@ public final class ShowAccountCommand extends SshCommand {
       stdout.println("Active:            " + account.isActive());
       stdout.println("Registered on:     " + account.getRegisteredOn());
 
-      final ReviewDb db = schema.open();
 
-      try {
+      try (final ReviewDb db = schema.open() ) {
         stdout.println("");
         stdout.println("External Ids:");
         stdout.println(String
@@ -130,20 +133,25 @@ public final class ShowAccountCommand extends SshCommand {
         if (showKeys) {
           stdout.println("");
           stdout.println("Public Keys:");
-          List<AccountSshKey> sshKeys =
-              db.accountSshKeys().byAccount(account.getId()).toList();
+          List<SshKeyInfo> sshKeys;
+          try {
+            sshKeys = getSshKeys.get()
+                .apply(new AccountResource(userFactory.create(id)));
+          } catch (AuthException | IOException | ConfigInvalidException e) {
+            stdout.println("Error getting ssh key info!");
+            e.printStackTrace();
+            sshKeys = null;
+          }
           if (sshKeys == null || sshKeys.isEmpty()) {
             stdout.println("None");
           } else {
             stdout.println(String.format("%-9s %s", "Status:", "Key:"));
-            for (AccountSshKey sshKey : sshKeys) {
-              stdout.println(String.format("%-9s %s", (sshKey.isValid()
-                  ? "Active" : "Inactive"), sshKey.getSshPublicKey()));
+            for (SshKeyInfo sshKey : sshKeys) {
+              stdout.println(String.format("%-9s %s", (sshKey.valid
+                  ? "Active" : "Inactive"), sshKey.sshPublicKey));
             }
           }
         }
-      } finally {
-        db.close();
       }
 
       if (showGroups) {
