@@ -126,7 +126,7 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
         List<GroupInfo> groupInfos =
             accountGetGroups.get().apply(
                 new AccountResource(userFactory.create(id)));
-        HashSet<String> groupHash = new HashSet<String>();
+        HashSet<String> groupHash = new HashSet<>();
 
         for (GroupInfo groupInfo : groupInfos) {
           groupHash.add(groupInfo.name);
