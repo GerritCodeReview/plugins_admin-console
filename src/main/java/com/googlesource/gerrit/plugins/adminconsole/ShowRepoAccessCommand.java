@@ -45,8 +45,7 @@ public final class ShowRepoAccessCommand extends SshCommand {
   private boolean wide;
 
   @Inject
-  ShowRepoAccessCommand(final MetaDataUpdate.Server metaDataUpdateFactory)
-      throws ConfigInvalidException, IOException {
+  ShowRepoAccessCommand(final MetaDataUpdate.Server metaDataUpdateFactory) {
     this.metaDataUpdateFactory = metaDataUpdateFactory;
   }
 
