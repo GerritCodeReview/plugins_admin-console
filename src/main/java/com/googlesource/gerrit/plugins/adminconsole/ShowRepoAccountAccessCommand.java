@@ -14,12 +14,10 @@
 
 package com.googlesource.gerrit.plugins.adminconsole;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
@@ -64,8 +62,7 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
       final MetaDataUpdate.Server metaDataUpdateFactory,
       final Provider<GetGroups> accountGetGroups,
       AccountResolver accountResolver,
-      final IdentifiedUser.GenericFactory userFactory)
-      throws ConfigInvalidException, IOException {
+      final IdentifiedUser.GenericFactory userFactory) {
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.accountGetGroups = accountGetGroups;
     this.accountResolver = accountResolver;
