@@ -45,7 +45,7 @@ public final class ShowRepoAccessCommand extends SshCommand {
   private boolean wide;
 
   @Inject
-  ShowRepoAccessCommand(final MetaDataUpdate.Server metaDataUpdateFactory) {
+  ShowRepoAccessCommand(MetaDataUpdate.Server metaDataUpdateFactory) {
     this.metaDataUpdateFactory = metaDataUpdateFactory;
   }
 
@@ -65,7 +65,7 @@ public final class ShowRepoAccessCommand extends SshCommand {
     if (projectName.isEmpty()) {
       throw new UnloggedFailure(1, "Please specify a project to show access for");
     }
-    final Project.NameKey nameKey = new Project.NameKey(projectName);
+    Project.NameKey nameKey = new Project.NameKey(projectName);
 
     permissionGroupWidth = wide ? Integer.MAX_VALUE : columns - 9 - 5 - 9;
 
@@ -96,7 +96,7 @@ public final class ShowRepoAccessCommand extends SshCommand {
     }
   }
 
-  private String format(final String s) {
+  private String format(String s) {
     if (s.length() < permissionGroupWidth) {
       return s;
     } else {
