@@ -62,19 +62,19 @@ public final class ShowAccountCommand extends SshCommand {
   @Option(name = "--show-keys", usage = "show user's public keys?")
   private boolean showKeys = false;
 
-  final AccountResolver accountResolver;
+  private final AccountResolver accountResolver;
   private final SchemaFactory<ReviewDb> schema;
   private final Provider<GetGroups> accountGetGroups;
   private final IdentifiedUser.GenericFactory userFactory;
   private final Provider<GetSshKeys> getSshKeys;
 
   @Inject
-  ShowAccountCommand(AccountResolver ar,
+  ShowAccountCommand(AccountResolver accountResolver,
       Provider<GetGroups> accountGetGroups,
       IdentifiedUser.GenericFactory userFactory,
       Provider<GetSshKeys> getSshKeys,
       SchemaFactory<ReviewDb> schema) {
-    accountResolver = ar;
+    this.accountResolver = accountResolver;
     this.accountGetGroups = accountGetGroups;
     this.userFactory = userFactory;
     this.schema = schema;
