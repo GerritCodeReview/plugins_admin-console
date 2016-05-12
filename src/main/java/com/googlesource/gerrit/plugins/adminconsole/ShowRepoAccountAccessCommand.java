@@ -59,10 +59,10 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
 
   @Inject
   ShowRepoAccountAccessCommand(
-      final MetaDataUpdate.Server metaDataUpdateFactory,
-      final Provider<GetGroups> accountGetGroups,
+      MetaDataUpdate.Server metaDataUpdateFactory,
+      Provider<GetGroups> accountGetGroups,
       AccountResolver accountResolver,
-      final IdentifiedUser.GenericFactory userFactory) {
+      IdentifiedUser.GenericFactory userFactory) {
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.accountGetGroups = accountGetGroups;
     this.accountResolver = accountResolver;
@@ -105,7 +105,7 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
               + " Tip: Try double-escaping spaces, for example: \"--user Last,\\\\ First\"");
     }
 
-    final Project.NameKey nameKey = new Project.NameKey(projectName);
+    Project.NameKey nameKey = new Project.NameKey(projectName);
 
     try {
       MetaDataUpdate md = metaDataUpdateFactory.create(nameKey);
@@ -172,7 +172,7 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
     }
   }
 
-  private String format(final String s) {
+  private String format(String s) {
     if (s.length() < permissionGroupWidth) {
       return s;
     } else {

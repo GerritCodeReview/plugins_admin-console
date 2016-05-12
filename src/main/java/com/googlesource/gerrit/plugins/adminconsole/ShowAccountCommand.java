@@ -70,9 +70,9 @@ public final class ShowAccountCommand extends SshCommand {
 
   @Inject
   ShowAccountCommand(AccountResolver ar,
-      final Provider<GetGroups> accountGetGroups,
-      final IdentifiedUser.GenericFactory userFactory,
-      final Provider<GetSshKeys> getSshKeys,
+      Provider<GetGroups> accountGetGroups,
+      IdentifiedUser.GenericFactory userFactory,
+      Provider<GetSshKeys> getSshKeys,
       SchemaFactory<ReviewDb> schema) {
     accountResolver = ar;
     this.accountGetGroups = accountGetGroups;
@@ -116,7 +116,7 @@ public final class ShowAccountCommand extends SshCommand {
       stdout.println("Active:            " + account.isActive());
       stdout.println("Registered on:     " + account.getRegisteredOn());
 
-      try (final ReviewDb db = schema.open()) {
+      try (ReviewDb db = schema.open()) {
         stdout.println("");
         stdout.println("External Ids:");
         stdout.println(String
