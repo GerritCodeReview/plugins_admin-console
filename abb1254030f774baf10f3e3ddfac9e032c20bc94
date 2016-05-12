@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b2337cd6_4ae3f3b6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowAccountCommand.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2016-05-12T12:38:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2337cd6_0ad9fb02",
+      "revId": "abb1254030f774baf10f3e3ddfac9e032c20bc94",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2337cd6_2ad6bfd1",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowAccountCommand.java",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2016-05-12T12:38:19Z",
       "side": 1,
       "message": "nit: extra space",
+      "range": {
+        "startLine": 120,
+        "startChar": 44,
+        "endLine": 120,
+        "endChar": 45
+      },
+      "revId": "abb1254030f774baf10f3e3ddfac9e032c20bc94",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2337cd6_6ae0b7a9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowAccountCommand.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2016-05-12T12:38:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2337cd6_2ad6bfd1",
       "range": {
         "startLine": 120,
         "startChar": 44,
