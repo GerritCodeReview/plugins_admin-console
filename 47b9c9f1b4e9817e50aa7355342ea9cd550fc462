@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2337cd6_4a50534c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowAccountCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-05-12T10:54:18Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it go to stderr?\n\nOr, should it just throw an UnloggedFailure like at line 110?",
+      "range": {
+        "startLine": 141,
+        "startChar": 12,
+        "endLine": 141,
+        "endChar": 18
+      },
+      "revId": "47b9c9f1b4e9817e50aa7355342ea9cd550fc462",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2337cd6_2a531f5b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowAccountCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-05-12T10:54:18Z",
+      "side": 1,
+      "message": "Add the exception message?",
+      "range": {
+        "startLine": 141,
+        "startChar": 27,
+        "endLine": 141,
+        "endChar": 56
+      },
+      "revId": "47b9c9f1b4e9817e50aa7355342ea9cd550fc462",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2337cd6_6a4d17b5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowAccountCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-05-12T10:54:18Z",
+      "side": 1,
+      "message": "Here it will print \"None\" even if there actually are keys but it just failed (for some reason) to get them.",
+      "range": {
+        "startLine": 144,
+        "startChar": 10,
+        "endLine": 145,
+        "endChar": 34
+      },
+      "revId": "47b9c9f1b4e9817e50aa7355342ea9cd550fc462",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
