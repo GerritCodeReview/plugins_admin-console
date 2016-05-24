@@ -22,6 +22,76 @@
       "revId": "24f85256a08607cc2d35473bbfbd050059e21602",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cb843a6_27155a8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012612
+      },
+      "writtenOn": "2016-05-24T13:50:41Z",
+      "side": 1,
+      "message": "I think I\u0027m in agreement: while perhaps a good idea, I\u0027m not so sure it belongs in admin-console.  For example, I tried a similar (albeit a bit braindead, that relies on the secondary index at least somewhat working) approach in Ifc2a717c.",
+      "parentUuid": "dc4d67b0_9c3fa510",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 16
+      },
+      "revId": "24f85256a08607cc2d35473bbfbd050059e21602",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cb843a6_8723e6ef",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/StartReindexCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1012612
+      },
+      "writtenOn": "2016-05-24T13:50:41Z",
+      "side": 1,
+      "message": "Note that OnlineReindexer will prevent you from reindexing any version other than those currently marked for writing (which would be the latest version, unless an online reindex is pending or in progress), so this parameter may not make much sense without updating the Lucene classes as well.",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 68
+      },
+      "revId": "24f85256a08607cc2d35473bbfbd050059e21602",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cb843a6_e7266201",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/StartReindexCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1012612
+      },
+      "writtenOn": "2016-05-24T13:50:41Z",
+      "side": 1,
+      "message": "Should guard against multiple invocations to prevent two tasks from trying to run the online reindexer over the same version?\n\nAlso, what will happen if you force a reindex on the currently active version? I\u0027d imagine some not-so-nice things when you rip out Lucene\u0027s database out from under it.",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 22
+      },
+      "revId": "24f85256a08607cc2d35473bbfbd050059e21602",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
