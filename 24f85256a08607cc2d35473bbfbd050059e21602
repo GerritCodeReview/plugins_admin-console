@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "1c5fffcc_a6622626",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/StartReindexCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1012612
+      },
+      "writtenOn": "2016-05-26T12:03:20Z",
+      "side": 1,
+      "message": "No, I\u0027d say it\u0027d be nice to get the current index value from core gerrit -- or at least document you can\u0027t roll back the index using this. :)  I realize now that the current index version may not be exposed to plugins, so that may be a limitation we have to live with.",
+      "parentUuid": "1c5fffcc_267876dd",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 68
+      },
+      "revId": "24f85256a08607cc2d35473bbfbd050059e21602",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cb843a6_e7266201",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/StartReindexCommand.java",
         "patchSetId": 1
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "I\u0027m not sure how to guard against multiple invocations since every time you call this command it will create a new instance of the OnlineIndexer.  Also calling multiple times doesn\u0027t seem to cause any problems or at least none that i\u0027ve noticed.\n\nI\u0027m not sure what you mean by \u0027rip out Lucene\u0027s database out from under it\u0027.  Do you mean stop using lucene?   It\u0027s the only option in 2.11 so  I\u0027m not sure why you would remove it.",
       "parentUuid": "3cb843a6_e7266201",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 22
+      },
+      "revId": "24f85256a08607cc2d35473bbfbd050059e21602",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c5fffcc_4658127d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/StartReindexCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1012612
+      },
+      "writtenOn": "2016-05-26T12:03:20Z",
+      "side": 1,
+      "message": "OK, my concern was wondering what would happen when you start a reindex on a live site -- if that would cause issues with search or any other functionality while the index was being rebuilt.  I mostly wanted to ensure the operation was \"safe.\"\n\nAs for guarding against multiple invocations, when I looked how core invokes the online reindexer, it looks like it starts a task and sets a flag accordingly so a new task can\u0027t be started until the other exits.  Again, I\u0027m not sure if this could actually cause problems.  (Maybe checking the task queue is enough to see if the reindexer is running?)",
+      "parentUuid": "1c5fffcc_c663a22d",
       "range": {
         "startLine": 38,
         "startChar": 4,
