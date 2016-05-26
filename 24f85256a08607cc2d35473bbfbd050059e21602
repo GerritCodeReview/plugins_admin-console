@@ -188,6 +188,30 @@
       "revId": "24f85256a08607cc2d35473bbfbd050059e21602",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c0c7bee_79a98788",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/StartReindexCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1012623
+      },
+      "writtenOn": "2016-05-26T18:44:19Z",
+      "side": 1,
+      "message": "Thanks for the pointer, I do see \u0027Index all changes of project..\u0027 tasks in the task queue.  I believe gerrit just executes the tasks in FIFO order (serially) so it really shouldn\u0027t matter if there are multiple reindex requests in the queue.\n\nVerifying that it\u0027s \u0027safe\u0027 sounds like a really tough task and maybe unrealistic.  What that actually sounds like to me is.. verify that everything in gerrit works while the index is being rebuilt.  I\u0027m not sure i want to go to that length for this change.",
+      "parentUuid": "1c5fffcc_4658127d",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 22
+      },
+      "revId": "24f85256a08607cc2d35473bbfbd050059e21602",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
