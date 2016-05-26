@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1c5fffcc_267876dd",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/StartReindexCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1012623
+      },
+      "writtenOn": "2016-05-26T06:10:08Z",
+      "side": 1,
+      "message": "Are you suggesting to remove this param and hard code \u002714\u0027 for the indexVersion?  I\u0027m ok with that but just wanted to clarify first.",
+      "parentUuid": "3cb843a6_8723e6ef",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 68
+      },
+      "revId": "24f85256a08607cc2d35473bbfbd050059e21602",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cb843a6_e7266201",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/StartReindexCommand.java",
         "patchSetId": 1
@@ -83,6 +107,30 @@
       "writtenOn": "2016-05-24T13:50:41Z",
       "side": 1,
       "message": "Should guard against multiple invocations to prevent two tasks from trying to run the online reindexer over the same version?\n\nAlso, what will happen if you force a reindex on the currently active version? I\u0027d imagine some not-so-nice things when you rip out Lucene\u0027s database out from under it.",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 22
+      },
+      "revId": "24f85256a08607cc2d35473bbfbd050059e21602",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c5fffcc_c663a22d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/StartReindexCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1012623
+      },
+      "writtenOn": "2016-05-26T06:10:08Z",
+      "side": 1,
+      "message": "I\u0027m not sure how to guard against multiple invocations since every time you call this command it will create a new instance of the OnlineIndexer.  Also calling multiple times doesn\u0027t seem to cause any problems or at least none that i\u0027ve noticed.\n\nI\u0027m not sure what you mean by \u0027rip out Lucene\u0027s database out from under it\u0027.  Do you mean stop using lucene?   It\u0027s the only option in 2.11 so  I\u0027m not sure why you would remove it.",
+      "parentUuid": "3cb843a6_e7266201",
       "range": {
         "startLine": 38,
         "startChar": 4,
