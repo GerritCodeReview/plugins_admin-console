@@ -14,6 +14,13 @@
 
 package com.googlesource.gerrit.plugins.adminconsole;
 
+import java.io.IOException;
+
+import org.eclipse.jgit.errors.ConfigInvalidException;
+import org.eclipse.jgit.errors.RepositoryNotFoundException;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.Option;
+
 import com.google.gerrit.common.data.AccessSection;
 import com.google.gerrit.common.data.GlobalCapability;
 import com.google.gerrit.common.data.Permission;
@@ -26,13 +33,6 @@ import com.google.gerrit.server.git.ProjectConfig;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.inject.Inject;
-
-import org.eclipse.jgit.errors.ConfigInvalidException;
-import org.eclipse.jgit.errors.RepositoryNotFoundException;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.Option;
-
-import java.io.IOException;
 
 @RequiresCapability(value=GlobalCapability.ADMINISTRATE_SERVER, scope=CapabilityScope.CORE)
 @CommandMetaData(name = "show-repo-access", description = "Displays access on a specific repository")

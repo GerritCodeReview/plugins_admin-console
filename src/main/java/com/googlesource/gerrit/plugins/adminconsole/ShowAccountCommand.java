@@ -14,6 +14,16 @@
 
 package com.googlesource.gerrit.plugins.adminconsole;
 
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+
+import org.eclipse.jgit.errors.ConfigInvalidException;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.Option;
+
 import com.google.gerrit.common.data.GlobalCapability;
 import com.google.gerrit.extensions.annotations.CapabilityScope;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
@@ -35,16 +45,6 @@ import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-
-import org.eclipse.jgit.errors.ConfigInvalidException;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.Option;
-
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
 
 @RequiresCapability(value=GlobalCapability.ADMINISTRATE_SERVER, scope=CapabilityScope.CORE)
 @CommandMetaData(name = "show-account", description = "Displays user information")
