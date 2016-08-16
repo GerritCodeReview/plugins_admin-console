@@ -181,8 +181,7 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
   private String format(String s) {
     if (s.length() < permissionGroupWidth) {
       return s;
-    } else {
-      return s.substring(0, permissionGroupWidth);
     }
+    return s.substring(0, permissionGroupWidth);
   }
 }

@@ -98,11 +98,10 @@ public final class ShowAccountCommand extends SshCommand {
                 + name
                 + "\""
                 + " Tip: Try double-escaping spaces, for example: \"show-account Last,\\\\ First\"");
-      } else {
-        stdout.println("Found " + idList.size() + " result"
-            + (idList.size() > 1 ? "s" : "") + ": for query: \"" + name + "\"");
-        stdout.println();
       }
+      stdout.println("Found " + idList.size() + " result"
+          + (idList.size() > 1 ? "s" : "") + ": for query: \"" + name + "\"");
+      stdout.println();
 
       for (Id id : idList) {
         account = accountResolver.find(db, id.toString());
