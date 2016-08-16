@@ -90,33 +90,33 @@ public final class ShowAccountCommand extends SshCommand {
           "You need to tell me who to find:  LastName,\\\\ Firstname, email@address.com, account id or an user name.  "
               + "Be sure to double-escape spaces, for example: \"show-account Last,\\\\ First\"");
     }
-
-    Set<Id> idList = accountResolver.findAll(name);
-    if (idList.isEmpty()) {
-      throw new UnloggedFailure(1,
-          "No accounts found for your query: \""
-              + name
-              + "\""
-              + " Tip: Try double-escaping spaces, for example: \"show-account Last,\\\\ First\"");
-    } else {
-      stdout.println("Found " + idList.size() + " result"
-          + (idList.size() > 1 ? "s" : "") + ": for query: \"" + name + "\"");
-      stdout.println();
-    }
-
-    for (Id id : idList) {
-      account = accountResolver.find(id.toString());
-      if (account == null) {
-        throw new UnloggedFailure("Account " + id.toString() + " does not exist.");
+    try (ReviewDb db = schema.open()) {
+      Set<Id> idList = accountResolver.findAll(db, name);
+      if (idList.isEmpty()) {
+        throw new UnloggedFailure(1,
+            "No accounts found for your query: \""
+                + name
+                + "\""
+                + " Tip: Try double-escaping spaces, for example: \"show-account Last,\\\\ First\"");
+      } else {
+        stdout.println("Found " + idList.size() + " result"
+            + (idList.size() > 1 ? "s" : "") + ": for query: \"" + name + "\"");
+        stdout.println();
       }
-      stdout.println("Full name:         " + account.getFullName());
-      stdout.println("Account Id:        " + id.toString());
-      stdout.println("Preferred Email:   " + account.getPreferredEmail());
-      stdout.println("User Name:         " + account.getUserName());
-      stdout.println("Active:            " + account.isActive());
-      stdout.println("Registered on:     " + account.getRegisteredOn());
 
-      try (ReviewDb db = schema.open()) {
+      for (Id id : idList) {
+        account = accountResolver.find(db, id.toString());
+        if (account == null) {
+          throw new UnloggedFailure("Account " + id.toString() + " does not exist.");
+        }
+        stdout.println("Full name:         " + account.getFullName());
+        stdout.println("Account Id:        " + id.toString());
+        stdout.println("Preferred Email:   " + account.getPreferredEmail());
+        stdout.println("User Name:         " + account.getUserName());
+        stdout.println("Active:            " + account.isActive());
+        stdout.println("Registered on:     " + account.getRegisteredOn());
+
+
         stdout.println("");
         stdout.println("External Ids:");
         stdout.println(String
@@ -149,26 +149,26 @@ public final class ShowAccountCommand extends SshCommand {
             }
           }
         }
-      }
 
-      if (showGroups) {
-        stdout.println();
-        stdout.println("Member of groups"
-            + (filterGroups == null ? "" : " (Filtering on \"" + filterGroups
-                + "\")") + ":");
-        List<GroupInfo> groupInfos =
-            accountGetGroups.get().apply(
-                new AccountResource(userFactory.create(id)));
+        if (showGroups) {
+          stdout.println();
+          stdout.println("Member of groups"
+              + (filterGroups == null ? "" : " (Filtering on \"" + filterGroups
+                  + "\")") + ":");
+          List<GroupInfo> groupInfos =
+              accountGetGroups.get().apply(
+                  new AccountResource(userFactory.create(id)));
 
-        Collections.sort(groupInfos, new CustomComparator());
-        for (GroupInfo groupInfo : groupInfos) {
-          if (null == filterGroups || groupInfo.name.toLowerCase().contains(filterGroups.toLowerCase
-              ())) {
-            stdout.println(groupInfo.name);
+          Collections.sort(groupInfos, new CustomComparator());
+          for (GroupInfo groupInfo : groupInfos) {
+            if (null == filterGroups || groupInfo.name.toLowerCase().contains(filterGroups.toLowerCase
+                ())) {
+              stdout.println(groupInfo.name);
+            }
           }
         }
+        stdout.println("");
       }
-      stdout.println("");
     }
   }
 
