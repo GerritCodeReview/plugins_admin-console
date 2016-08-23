@@ -15,7 +15,7 @@ SYNOPSIS
 DESCRIPTION
 -----------
 Displays access for a specific repository.  Does not interpret repository inheritance (currently - may change in the future, or be added as an option)
-Note, see [cmd-show-account](cmd-show-account.html) for more information on the user search functionality provided here.
+Note, see [cmd-show-account](cmd-show-account.md) for more information on the user search functionality provided here.
 
 OPTIONS
 -------
