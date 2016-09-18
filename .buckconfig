@@ -1,0 +1,17 @@
+[alias]
+  admin-console = //:admin-console
+  plugin = //:admin-console
+  src = //:admin-console-sources
+
+[java]
+  jar_spool_mode = direct_to_jar
+  src_roots = java, resources
+
+[project]
+  ignore = .git, eclipse-out/
+  parallel_parsing = true
+
+[cache]
+  mode = dir
+  dir = buck-out/cache
+

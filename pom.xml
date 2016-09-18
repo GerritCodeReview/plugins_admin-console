@@ -26,7 +26,6 @@ limitations under the License.
   <properties>
     <Gerrit-ApiType>plugin</Gerrit-ApiType>
     <Gerrit-ApiVersion>${project.version}</Gerrit-ApiVersion>
-     <jettyVersion>8.1.7.v20120910</jettyVersion>
   </properties>
 
   <build>
@@ -41,7 +40,7 @@ limitations under the License.
               <Gerrit-SshModule>com.googlesource.gerrit.plugins.adminconsole.AdminConsoleCommandModule</Gerrit-SshModule>
 
               <Implementation-Vendor>Gerrit Code Review</Implementation-Vendor>
-              <Implementation-URL>http://code.google.com/p/gerrit/</Implementation-URL>
+              <Implementation-URL>https://gerrit-review.googlesource.com/#/admin/projects/plugins/admin-console</Implementation-URL>
 
               <Implementation-Title>Plugin ${project.artifactId}</Implementation-Title>
               <Implementation-Version>${project.version}</Implementation-Version>

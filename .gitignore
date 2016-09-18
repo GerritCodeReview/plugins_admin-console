@@ -1,5 +1,11 @@
-/target
+/.buckd/
+/.buckversion
 /.classpath
-/.settings
-/.project
 *.DS_Store
+/.project
+/.settings
+/.watchmanconfig
+/buck-out/
+/bucklets
+/eclipse-out/
+/target
