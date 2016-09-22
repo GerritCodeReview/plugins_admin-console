@@ -5,7 +5,7 @@ REPO = MAVEN_CENTRAL
 
 maven_jar(
   name = 'plugin-api',
-  id = 'com.gogle.gerrit:gerrit-plugin-api:' + VER,
+  id = 'com.google.gerrit:gerrit-plugin-api:' + VER,
   sha1 = 'e25d55b8f41627c4ae6b9d2069ec398638b219a3',
   attach_source = False,
   repository = REPO,
