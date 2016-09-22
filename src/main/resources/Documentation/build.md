@@ -1,7 +1,7 @@
 Build
 =====
 
-This plugin is built with Buck or Maven.
+This plugin is built with Buck.
 
 Buck
 ----
@@ -99,15 +99,6 @@ To execute the tests run:
 
 ```
   buck test --include @PLUGIN@
-```
-
-Maven
------
-
-To build with Maven, run
-
-```
-mvn clean package
 ```
 
 How to build the Gerrit Plugin API is described in the [Gerrit
