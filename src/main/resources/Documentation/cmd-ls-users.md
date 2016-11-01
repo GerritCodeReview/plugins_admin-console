@@ -16,9 +16,7 @@ Lists all user accounts registered on the site.
 OPTIONS
 -------
 
---help
-
--h
+`--help, -h`
 > Display usage information.
 
 ACCESS

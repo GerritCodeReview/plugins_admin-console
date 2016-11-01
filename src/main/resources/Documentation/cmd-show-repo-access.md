@@ -19,14 +19,13 @@ Note, see [cmd-show-account](cmd-show-account.html) for more information on the 
 
 OPTIONS
 -------
-repository
+`repository`
 > Repository to show access for
 
--w
+`-w`
 > Display without line width truncation
---help
 
--h
+`--help, -h`
 > Display usage information.
 
 ACCESS
