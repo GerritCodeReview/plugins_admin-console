@@ -15,6 +15,11 @@ Lists all user accounts registered on the site.
 
 OPTIONS
 -------
+`--active-only`
+> Show only active users
+
+`--inactive-only`
+> Show only inactive users
 
 `--help, -h`
 > Display usage information.
