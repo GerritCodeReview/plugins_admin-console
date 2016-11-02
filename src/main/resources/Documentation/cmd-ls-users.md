@@ -15,10 +15,13 @@ Lists all user accounts registered on the site.
 
 OPTIONS
 -------
+`--active-only`
+> Show only active users
 
---help
+`--inactive-only`
+> Show only inactive users
 
--h
+`--help, -h`
 > Display usage information.
 
 ACCESS
