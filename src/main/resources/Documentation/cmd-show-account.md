@@ -20,24 +20,22 @@ Displays useful information about a specific user.  For search strings that matc
 OPTIONS
 -------
 
-user
+`user`
 > User to look up: This can be in one of several formats: LastName,\\\\ FirstName,  email\@address.com, account id or an user name. Be sure to double-escape spaces.  Case-sensitive
 
---show-groups
+`--show-groups`
 > Show all groups user is a member of?
 
---filter-groups
+`--filter-groups`
 > Filter group list?
 
---filter-string
+`--filter-string`
 > String to perform group filtering on.  Does not currently support regex.  Case-insensitive.
 
---show-keys
+`--show-keys`
 > Show users ssh public keys?
 
---help
-
--h
+`--help, -h`
 > Display usage information.
 
 ACCESS

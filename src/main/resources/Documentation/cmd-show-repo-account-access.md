@@ -19,17 +19,16 @@ Displays access for a specific repository by user.  Does not interpret repositor
 
 OPTIONS
 -------
-repository
+`repository`
 > Repository to show access for
 
---user
+`--user`
 > User to look up: This can be in one of several formats: LastName,\\\\ FirstName,  email\@address.com, account id or an user name. Be sure to double-escape spaces.  Case-sensitive
 
--w
+`-w`
 > Display without line width truncation
---help
 
--h
+`--help, -h`
 > Display usage information.
 
 ACCESS
