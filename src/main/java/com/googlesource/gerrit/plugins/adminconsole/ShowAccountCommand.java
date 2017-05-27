@@ -32,6 +32,7 @@ import com.google.gerrit.server.account.GetSshKeys;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.server.OrmException;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -135,7 +136,7 @@ public final class ShowAccountCommand extends SshCommand {
           try {
             sshKeys = getSshKeys.get()
                 .apply(new AccountResource(userFactory.create(id)));
-          } catch (AuthException | IOException | ConfigInvalidException e) {
+          } catch (AuthException | IOException | ConfigInvalidException | PermissionBackendException e) {
             throw new UnloggedFailure(1, "Error getting sshkeys: " + e.getMessage(), e);
           }
           if (sshKeys == null || sshKeys.isEmpty()) {
