@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f967a05_9e497c64",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowAccountCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-05-28T23:40:01Z",
+      "side": 1,
+      "message": "ExternalIds.byAccount returns Set\u003cExternalId\u003e.  This causes a compilation error:\n\n error: incompatible types: ExternalId cannot be converted to ExternalIds",
+      "range": {
+        "startLine": 127,
+        "startChar": 13,
+        "endLine": 127,
+        "endChar": 24
+      },
+      "revId": "808b177aa4dd0f1390e42e1e4c417aeb7df5a894",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
