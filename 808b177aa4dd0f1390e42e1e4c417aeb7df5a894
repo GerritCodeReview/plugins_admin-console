@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5861321b_494e7b2d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowAccountCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-05-28T23:47:23Z",
+      "side": 1,
+      "message": "I\u0027ve added an s on it by mistake.",
+      "parentUuid": "7f967a05_9e497c64",
+      "range": {
+        "startLine": 127,
+        "startChar": 13,
+        "endLine": 127,
+        "endChar": 24
+      },
+      "revId": "808b177aa4dd0f1390e42e1e4c417aeb7df5a894",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "877c162b_36b5e283",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowAccountCommand.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "13075895_fb0d69bc",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowAccountCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-05-28T23:47:23Z",
+      "side": 1,
+      "message": "I\u0027ve tryed searching but couldent find anywhere that does something similar to what we are doing here.",
+      "parentUuid": "877c162b_36b5e283",
+      "range": {
+        "startLine": 129,
+        "startChar": 33,
+        "endLine": 129,
+        "endChar": 48
+      },
+      "revId": "808b177aa4dd0f1390e42e1e4c417aeb7df5a894",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11f30937_f622e7fb",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowAccountCommand.java",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2017-05-28T23:42:44Z",
       "side": 1,
       "message": "method does not exist",
+      "range": {
+        "startLine": 131,
+        "startChar": 19,
+        "endLine": 131,
+        "endChar": 32
+      },
+      "revId": "808b177aa4dd0f1390e42e1e4c417aeb7df5a894",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ae7e1a7_71e531d1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowAccountCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-05-28T23:47:23Z",
+      "side": 1,
+      "message": "I\u0027ve tried searching but couldent find anywhere that does something similar to what we are doing here.",
+      "parentUuid": "11f30937_f622e7fb",
       "range": {
         "startLine": 131,
         "startChar": 19,
