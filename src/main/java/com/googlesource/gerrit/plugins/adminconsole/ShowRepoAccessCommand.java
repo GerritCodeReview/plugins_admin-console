@@ -26,16 +26,17 @@ import com.google.gerrit.server.git.ProjectConfig;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.inject.Inject;
-
+import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
-import java.io.IOException;
-
-@RequiresCapability(value=GlobalCapability.ADMINISTRATE_SERVER, scope=CapabilityScope.CORE)
-@CommandMetaData(name = "show-repo-access", description = "Displays access on a specific repository")
+@RequiresCapability(value = GlobalCapability.ADMINISTRATE_SERVER, scope = CapabilityScope.CORE)
+@CommandMetaData(
+  name = "show-repo-access",
+  description = "Displays access on a specific repository"
+)
 public final class ShowRepoAccessCommand extends SshCommand {
 
   @Argument(usage = "project to show access for?")
@@ -55,8 +56,7 @@ public final class ShowRepoAccessCommand extends SshCommand {
   private int permissionGroupWidth;
 
   @Override
-  public void run() throws UnloggedFailure, Failure, IOException,
-      ConfigInvalidException {
+  public void run() throws UnloggedFailure, Failure, IOException, ConfigInvalidException {
     // space indented Strings to be used as format for String.format() later
     String sectionNameFormatter = "  %-25s\n";
     String ruleNameFormatter = "    %-15s\n ";
@@ -75,19 +75,20 @@ public final class ShowRepoAccessCommand extends SshCommand {
       config = ProjectConfig.read(md);
       for (AccessSection accessSection : config.getAccessSections()) {
 
-        stdout.print((String.format(sectionNameFormatter, accessSection
-            .getName().toString())));
+        stdout.print((String.format(sectionNameFormatter, accessSection.getName().toString())));
 
         for (Permission permission : accessSection.getPermissions()) {
 
           for (PermissionRule rule : permission.getRules()) {
-            stdout
-                .print(String.format(ruleNameFormatter, permission.getName()));
-            stdout.print(String.format(permissionNameFormatter,
-                (!rule.getMin().equals(rule.getMax())) ? "" + rule.getMin() + " "
-                    + rule.getMax() : rule.getAction(),
-                (permission.getExclusiveGroup() ? "EXCLUSIVE" : ""),
-                format(rule.getGroup().getName())));
+            stdout.print(String.format(ruleNameFormatter, permission.getName()));
+            stdout.print(
+                String.format(
+                    permissionNameFormatter,
+                    (!rule.getMin().equals(rule.getMax()))
+                        ? "" + rule.getMin() + " " + rule.getMax()
+                        : rule.getAction(),
+                    (permission.getExclusiveGroup() ? "EXCLUSIVE" : ""),
+                    format(rule.getGroup().getName())));
           }
         }
       }
