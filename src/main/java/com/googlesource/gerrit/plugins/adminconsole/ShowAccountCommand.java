@@ -22,13 +22,14 @@ import com.google.gerrit.extensions.common.SshKeyInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.Account.Id;
-import com.google.gerrit.reviewdb.client.AccountExternalId;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.server.account.AccountResource;
 import com.google.gerrit.server.account.GetGroups;
 import com.google.gerrit.server.account.GetSshKeys;
+import com.google.gerrit.server.account.externalids.ExternalId;
+import com.google.gerrit.server.account.externalids.ExternalIds;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.server.OrmException;
@@ -68,18 +69,21 @@ public final class ShowAccountCommand extends SshCommand {
   private final Provider<GetGroups> accountGetGroups;
   private final IdentifiedUser.GenericFactory userFactory;
   private final Provider<GetSshKeys> getSshKeys;
+  private final ExternalIds externalIds;
 
   @Inject
   ShowAccountCommand(AccountResolver accountResolver,
       Provider<GetGroups> accountGetGroups,
       IdentifiedUser.GenericFactory userFactory,
       Provider<GetSshKeys> getSshKeys,
-      SchemaFactory<ReviewDb> schema) {
+      SchemaFactory<ReviewDb> schema,
+      ExternalIds externalIds) {
     this.accountResolver = accountResolver;
     this.accountGetGroups = accountGetGroups;
     this.userFactory = userFactory;
-    this.schema = schema;
     this.getSshKeys = getSshKeys;
+    this.schema = schema;
+    this.externalIds = externalIds;
   }
 
   @Override
@@ -121,14 +125,14 @@ public final class ShowAccountCommand extends SshCommand {
         stdout.println("External Ids:");
         stdout.println(String
             .format("%-50s %s", "Email Address:", "External Id:"));
-        for (AccountExternalId accountExternalId : db.accountExternalIds()
-            .byAccount(account.getId())) {
-          stdout.println(String.format("%-50s %s",
-              (accountExternalId.getEmailAddress() == null ? ""
-                  : accountExternalId.getEmailAddress()), accountExternalId
-                  .getExternalId()));
+        try {
+          for (ExternalId externalId : externalIds.byAccount(account.getId())) {
+            stdout.println(String.format("%-50s %s",
+                (externalId.email() == null ? "" : externalId.email()), externalId));
+          }
+        } catch (IOException e) {
+          throw new UnloggedFailure(1, "Error getting external Ids: " + e.getMessage(), e);
         }
-
         if (showKeys) {
           stdout.println("");
           stdout.println("Public Keys:");
