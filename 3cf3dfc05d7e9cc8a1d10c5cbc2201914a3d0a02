@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16e18aeb_c5f5d886",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/GetFullPathCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-06-11T14:21:04Z",
+      "side": 1,
+      "message": "Use path.resolve() instead of hardcoding the path separator so this is as OS agnostic as possible. Also, println can used to avoid having to add a new line manually. Finally, a JGit constant can replace the hardcoded extension:\n\n stdout.println(localDiskRepositoryManager.getBasePath(nameKey).resolve(nameKey.get().concat(Constants.DOT_GIT_EXT)));",
+      "range": {
+        "startLine": 58,
+        "startChar": 6,
+        "endLine": 59,
+        "endChar": 43
+      },
+      "revId": "3cf3dfc05d7e9cc8a1d10c5cbc2201914a3d0a02",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
