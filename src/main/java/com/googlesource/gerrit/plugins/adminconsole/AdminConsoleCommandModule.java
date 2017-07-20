@@ -21,8 +21,10 @@ public class AdminConsoleCommandModule extends PluginCommandModule {
   protected void configureCommands() {
     command(ShowAccountCommand.class);
     command(ListUsersCommand.class);
+    command(GetFullPathCommand.class);
     alias("show-account", ShowAccountCommand.class);
     alias("show-repo-account-access", ShowRepoAccountAccessCommand.class);
     alias("show-repo-access", ShowRepoAccessCommand.class);
+    alias("get-path", GetFullPathCommand.class);
   }
 }
