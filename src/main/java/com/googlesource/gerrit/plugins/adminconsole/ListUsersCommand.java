@@ -23,9 +23,9 @@ import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
-import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.ResultSet;
 import com.google.inject.Inject;
+
 import org.kohsuke.args4j.Option;
 
 @RequiresCapability(value = GlobalCapability.ADMINISTRATE_SERVER, scope = CapabilityScope.CORE)
@@ -77,7 +77,7 @@ public final class ListUsersCommand extends SshCommand {
     }
   }
 
-  private String getUsername(Account account) throws OrmException {
+  private String getUsername(Account account) throws Exception {
     String id = account.getId().toString();
     Account accountFromResolver = accountResolver.find(db, id);
     return accountFromResolver == null ? null : accountFromResolver.getUserName();

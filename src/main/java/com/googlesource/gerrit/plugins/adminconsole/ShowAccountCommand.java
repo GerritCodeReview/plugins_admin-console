@@ -33,7 +33,6 @@ import com.google.gerrit.server.account.externalids.ExternalIds;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
-import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -89,7 +88,7 @@ public final class ShowAccountCommand extends SshCommand {
   }
 
   @Override
-  public void run() throws UnloggedFailure, OrmException {
+  public void run() throws UnloggedFailure, Exception {
     Account account;
 
     if (name.isEmpty()) {
