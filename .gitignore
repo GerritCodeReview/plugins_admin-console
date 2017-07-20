@@ -2,3 +2,5 @@
 *.DS_Store
 /.project
 /.settings
+/.primary_build_tool
+/bazel-*
