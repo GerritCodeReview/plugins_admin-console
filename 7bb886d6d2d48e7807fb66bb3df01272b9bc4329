@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f864dd43_4132b7e9",
+        "filename": "tools/BUILD",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-07-21T18:25:23Z",
+      "side": 1,
+      "message": "This file is not required, no skylark rule in this folder",
+      "revId": "7bb886d6d2d48e7807fb66bb3df01272b9bc4329",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
