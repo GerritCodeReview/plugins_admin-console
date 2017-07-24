@@ -16,6 +16,24 @@
       "revId": "24e24de9e7b4a78dea1019e1af97c6c04d6ba119",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "897aaf5e_1427874f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ListUsersCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-07-24T08:13:16Z",
+      "side": 1,
+      "message": "never mind; it looks like gjf wasn\u0027t used here yet.",
+      "parentUuid": "9b9e0694_0df18188",
+      "revId": "24e24de9e7b4a78dea1019e1af97c6c04d6ba119",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
