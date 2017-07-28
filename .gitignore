@@ -4,3 +4,4 @@
 /.settings
 /.primary_build_tool
 /bazel-*
+/eclipse-out
