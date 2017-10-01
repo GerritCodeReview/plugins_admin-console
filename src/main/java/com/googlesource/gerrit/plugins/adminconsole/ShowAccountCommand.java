@@ -22,7 +22,6 @@ import com.google.gerrit.extensions.common.SshKeyInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.Account.Id;
-import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.server.account.AccountResource;
@@ -33,7 +32,6 @@ import com.google.gerrit.server.account.externalids.ExternalIds;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
-import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import java.io.IOException;
@@ -65,7 +63,6 @@ public final class ShowAccountCommand extends SshCommand {
   private boolean showKeys = false;
 
   private final AccountResolver accountResolver;
-  private final SchemaFactory<ReviewDb> schema;
   private final Provider<GetGroups> accountGetGroups;
   private final IdentifiedUser.GenericFactory userFactory;
   private final Provider<GetSshKeys> getSshKeys;
@@ -77,13 +74,11 @@ public final class ShowAccountCommand extends SshCommand {
       Provider<GetGroups> accountGetGroups,
       IdentifiedUser.GenericFactory userFactory,
       Provider<GetSshKeys> getSshKeys,
-      SchemaFactory<ReviewDb> schema,
       ExternalIds externalIds) {
     this.accountResolver = accountResolver;
     this.accountGetGroups = accountGetGroups;
     this.userFactory = userFactory;
     this.getSshKeys = getSshKeys;
-    this.schema = schema;
     this.externalIds = externalIds;
   }
 
@@ -97,94 +92,92 @@ public final class ShowAccountCommand extends SshCommand {
           "You need to tell me who to find:  LastName,\\\\ Firstname, email@address.com, account id or an user name.  "
               + "Be sure to double-escape spaces, for example: \"show-account Last,\\\\ First\"");
     }
-    try (ReviewDb db = schema.open()) {
-      Set<Id> idList = accountResolver.findAll(db, name);
-      if (idList.isEmpty()) {
-        throw new UnloggedFailure(
-            1,
-            "No accounts found for your query: \""
-                + name
-                + "\""
-                + " Tip: Try double-escaping spaces, for example: \"show-account Last,\\\\ First\"");
-      }
-      stdout.println(
-          "Found "
-              + idList.size()
-              + " result"
-              + (idList.size() > 1 ? "s" : "")
-              + ": for query: \""
+    Set<Id> idList = accountResolver.findAll(name);
+    if (idList.isEmpty()) {
+      throw new UnloggedFailure(
+          1,
+          "No accounts found for your query: \""
               + name
-              + "\"");
-      stdout.println();
+              + "\""
+              + " Tip: Try double-escaping spaces, for example: \"show-account Last,\\\\ First\"");
+    }
+    stdout.println(
+        "Found "
+            + idList.size()
+            + " result"
+            + (idList.size() > 1 ? "s" : "")
+            + ": for query: \""
+            + name
+            + "\"");
+    stdout.println();
 
-      for (Id id : idList) {
-        account = accountResolver.find(db, id.toString());
-        if (account == null) {
-          throw new UnloggedFailure("Account " + id.toString() + " does not exist.");
+    for (Id id : idList) {
+      account = accountResolver.find(id.toString());
+      if (account == null) {
+        throw new UnloggedFailure("Account " + id.toString() + " does not exist.");
+      }
+      stdout.println("Full name:         " + account.getFullName());
+      stdout.println("Account Id:        " + id.toString());
+      stdout.println("Preferred Email:   " + account.getPreferredEmail());
+      stdout.println("User Name:         " + account.getUserName());
+      stdout.println("Active:            " + account.isActive());
+      stdout.println("Registered on:     " + account.getRegisteredOn());
+
+      stdout.println("");
+      stdout.println("External Ids:");
+      stdout.println(String.format("%-50s %s", "Email Address:", "External Id:"));
+      try {
+        for (ExternalId externalId : externalIds.byAccount(account.getId())) {
+          stdout.println(
+              String.format(
+                  "%-50s %s",
+                  (externalId.email() == null ? "" : externalId.email()), externalId.key()));
         }
-        stdout.println("Full name:         " + account.getFullName());
-        stdout.println("Account Id:        " + id.toString());
-        stdout.println("Preferred Email:   " + account.getPreferredEmail());
-        stdout.println("User Name:         " + account.getUserName());
-        stdout.println("Active:            " + account.isActive());
-        stdout.println("Registered on:     " + account.getRegisteredOn());
-
+      } catch (IOException e) {
+        throw new UnloggedFailure(1, "Error getting external Ids: " + e.getMessage(), e);
+      }
+      if (showKeys) {
         stdout.println("");
-        stdout.println("External Ids:");
-        stdout.println(String.format("%-50s %s", "Email Address:", "External Id:"));
+        stdout.println("Public Keys:");
+        List<SshKeyInfo> sshKeys;
         try {
-          for (ExternalId externalId : externalIds.byAccount(account.getId())) {
+          sshKeys = getSshKeys.get().apply(new AccountResource(userFactory.create(id)));
+        } catch (AuthException
+            | IOException
+            | ConfigInvalidException
+            | PermissionBackendException e) {
+          throw new UnloggedFailure(1, "Error getting sshkeys: " + e.getMessage(), e);
+        }
+        if (sshKeys == null || sshKeys.isEmpty()) {
+          stdout.println("None");
+        } else {
+          stdout.println(String.format("%-9s %s", "Status:", "Key:"));
+          for (SshKeyInfo sshKey : sshKeys) {
             stdout.println(
                 String.format(
-                    "%-50s %s",
-                    (externalId.email() == null ? "" : externalId.email()), externalId.key()));
-          }
-        } catch (IOException e) {
-          throw new UnloggedFailure(1, "Error getting external Ids: " + e.getMessage(), e);
-        }
-        if (showKeys) {
-          stdout.println("");
-          stdout.println("Public Keys:");
-          List<SshKeyInfo> sshKeys;
-          try {
-            sshKeys = getSshKeys.get().apply(new AccountResource(userFactory.create(id)));
-          } catch (AuthException
-              | IOException
-              | ConfigInvalidException
-              | PermissionBackendException e) {
-            throw new UnloggedFailure(1, "Error getting sshkeys: " + e.getMessage(), e);
-          }
-          if (sshKeys == null || sshKeys.isEmpty()) {
-            stdout.println("None");
-          } else {
-            stdout.println(String.format("%-9s %s", "Status:", "Key:"));
-            for (SshKeyInfo sshKey : sshKeys) {
-              stdout.println(
-                  String.format(
-                      "%-9s %s", (sshKey.valid ? "Active" : "Inactive"), sshKey.sshPublicKey));
-            }
+                    "%-9s %s", (sshKey.valid ? "Active" : "Inactive"), sshKey.sshPublicKey));
           }
         }
-
-        if (showGroups) {
-          stdout.println();
-          stdout.println(
-              "Member of groups"
-                  + (filterGroups == null ? "" : " (Filtering on \"" + filterGroups + "\")")
-                  + ":");
-          List<GroupInfo> groupInfos =
-              accountGetGroups.get().apply(new AccountResource(userFactory.create(id)));
-
-          Collections.sort(groupInfos, new CustomComparator());
-          for (GroupInfo groupInfo : groupInfos) {
-            if (null == filterGroups
-                || groupInfo.name.toLowerCase().contains(filterGroups.toLowerCase())) {
-              stdout.println(groupInfo.name);
-            }
-          }
-        }
-        stdout.println("");
       }
+
+      if (showGroups) {
+        stdout.println();
+        stdout.println(
+            "Member of groups"
+                + (filterGroups == null ? "" : " (Filtering on \"" + filterGroups + "\")")
+                + ":");
+        List<GroupInfo> groupInfos =
+            accountGetGroups.get().apply(new AccountResource(userFactory.create(id)));
+
+        Collections.sort(groupInfos, new CustomComparator());
+        for (GroupInfo groupInfo : groupInfos) {
+          if (null == filterGroups
+              || groupInfo.name.toLowerCase().contains(filterGroups.toLowerCase())) {
+            stdout.println(groupInfo.name);
+          }
+        }
+      }
+      stdout.println("");
     }
   }
 
