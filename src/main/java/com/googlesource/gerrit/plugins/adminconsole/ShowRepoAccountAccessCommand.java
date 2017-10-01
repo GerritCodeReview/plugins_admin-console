@@ -75,14 +75,12 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
     this.accountGetGroups = accountGetGroups;
     this.accountResolver = accountResolver;
     this.userFactory = userFactory;
-    this.schema = schema;
   }
 
   private final MetaDataUpdate.Server metaDataUpdateFactory;
   private final AccountResolver accountResolver;
   private final Provider<GetGroups> accountGetGroups;
   private final IdentifiedUser.GenericFactory userFactory;
-  private final SchemaFactory<ReviewDb> schema;
   private int columns = 80;
   private int permissionGroupWidth;
 
@@ -106,82 +104,80 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
           "You need to tell me who to find:  LastName,\\\\ Firstname, email@address.com, account id or an user name.  "
               + "Be sure to double-escape spaces, for example: \"show-repo-account-access All-Projects --user Last,\\\\ First\"");
     }
-    try (ReviewDb db = schema.open()) {
-      Set<Id> idList = accountResolver.findAll(db, name);
-      if (idList.isEmpty()) {
-        throw new UnloggedFailure(
-            1,
-            "No accounts found for your query: \""
-                + name
-                + "\""
-                + " Tip: Try double-escaping spaces, for example: \"--user Last,\\\\ First\"");
-      }
+    Set<Id> idList = accountResolver.findAll(name);
+    if (idList.isEmpty()) {
+      throw new UnloggedFailure(
+          1,
+          "No accounts found for your query: \""
+              + name
+              + "\""
+              + " Tip: Try double-escaping spaces, for example: \"--user Last,\\\\ First\"");
+    }
 
-      Project.NameKey nameKey = new Project.NameKey(projectName);
+    Project.NameKey nameKey = new Project.NameKey(projectName);
 
-      try {
-        MetaDataUpdate md = metaDataUpdateFactory.create(nameKey);
-        ProjectConfig config;
-        config = ProjectConfig.read(md);
+    try {
+      MetaDataUpdate md = metaDataUpdateFactory.create(nameKey);
+      ProjectConfig config;
+      config = ProjectConfig.read(md);
 
-        permissionGroupWidth = wide ? Integer.MAX_VALUE : columns - 9 - 5 - 9;
+      permissionGroupWidth = wide ? Integer.MAX_VALUE : columns - 9 - 5 - 9;
 
-        for (Id id : idList) {
-          userHasPermissionsInProject = false;
-          account = accountResolver.find(db, id.toString());
-          stdout.println("Full name:         " + account.getFullName());
-          // Need to know what groups the user is in. This is not a great
-          // solution, but it does work.
-          List<GroupInfo> groupInfos =
-              accountGetGroups.get().apply(new AccountResource(userFactory.create(id)));
-          HashSet<String> groupHash = new HashSet<>();
+      for (Id id : idList) {
+        userHasPermissionsInProject = false;
+        account = accountResolver.find(id.toString());
+        stdout.println("Full name:         " + account.getFullName());
+        // Need to know what groups the user is in. This is not a great
+        // solution, but it does work.
+        List<GroupInfo> groupInfos =
+            accountGetGroups.get().apply(new AccountResource(userFactory.create(id)));
+        HashSet<String> groupHash = new HashSet<>();
 
-          for (GroupInfo groupInfo : groupInfos) {
-            groupHash.add(groupInfo.name);
-          }
+        for (GroupInfo groupInfo : groupInfos) {
+          groupHash.add(groupInfo.name);
+        }
 
-          for (AccessSection accessSection : config.getAccessSections()) {
-            StringBuilder sb = new StringBuilder();
-            sb.append((String.format(sectionNameFormatter, accessSection.getName().toString())));
-            // This is a solution to prevent displaying a section heading unless
-            // the user has permissions for it
-            // not the best solution, but I haven't been able to find
-            // "Is user a member of this group" based on the information I have
-            // in a more efficient manner yet.
-            userHasPermissionsInSection = false;
-            for (Permission permission : accessSection.getPermissions()) {
+        for (AccessSection accessSection : config.getAccessSections()) {
+          StringBuilder sb = new StringBuilder();
+          sb.append((String.format(sectionNameFormatter, accessSection.getName().toString())));
+          // This is a solution to prevent displaying a section heading unless
+          // the user has permissions for it
+          // not the best solution, but I haven't been able to find
+          // "Is user a member of this group" based on the information I have
+          // in a more efficient manner yet.
+          userHasPermissionsInSection = false;
+          for (Permission permission : accessSection.getPermissions()) {
 
-              for (PermissionRule rule : permission.getRules()) {
+            for (PermissionRule rule : permission.getRules()) {
 
-                if (groupHash.contains(rule.getGroup().getName())) {
-                  sb.append(String.format(ruleNameFormatter, permission.getName()));
-                  sb.append(
-                      String.format(
-                          permissionNameFormatter,
-                          (!rule.getMin().equals(rule.getMax()))
-                              ? "" + rule.getMin() + " " + rule.getMax()
-                              : rule.getAction(),
-                          (permission.getExclusiveGroup() ? "EXCLUSIVE" : ""),
-                          format(rule.getGroup().getName())));
-                  userHasPermissionsInSection = true;
-                }
+              if (groupHash.contains(rule.getGroup().getName())) {
+                sb.append(String.format(ruleNameFormatter, permission.getName()));
+                sb.append(
+                    String.format(
+                        permissionNameFormatter,
+                        (!rule.getMin().equals(rule.getMax()))
+                            ? "" + rule.getMin() + " " + rule.getMax()
+                            : rule.getAction(),
+                        (permission.getExclusiveGroup() ? "EXCLUSIVE" : ""),
+                        format(rule.getGroup().getName())));
+                userHasPermissionsInSection = true;
               }
             }
-
-            if (userHasPermissionsInSection) {
-              stdout.print(sb.toString());
-
-              userHasPermissionsInProject = true;
-            }
           }
 
-          if (!userHasPermissionsInProject) {
-            stdout.println("  No access found for this user on this repository");
+          if (userHasPermissionsInSection) {
+            stdout.print(sb.toString());
+
+            userHasPermissionsInProject = true;
           }
         }
-      } catch (RepositoryNotFoundException e) {
-        throw new UnloggedFailure(1, "Repository not found");
+
+        if (!userHasPermissionsInProject) {
+          stdout.println("  No access found for this user on this repository");
+        }
       }
+    } catch (RepositoryNotFoundException e) {
+      throw new UnloggedFailure(1, "Repository not found");
     }
   }
 
