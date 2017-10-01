@@ -18,20 +18,24 @@ import com.google.common.base.Strings;
 import com.google.gerrit.common.data.GlobalCapability;
 import com.google.gerrit.extensions.annotations.CapabilityScope;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
+import com.google.gerrit.index.query.Predicate;
 import com.google.gerrit.reviewdb.client.Account;
-import com.google.gerrit.reviewdb.server.ReviewDb;
-import com.google.gerrit.server.account.AccountResolver;
+import com.google.gerrit.server.account.AccountState;
+import com.google.gerrit.server.query.account.AccountPredicates;
+import com.google.gerrit.server.query.account.InternalAccountQuery;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
-import com.google.gwtorm.server.ResultSet;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
+
 import org.kohsuke.args4j.Option;
+
+
 
 @RequiresCapability(value = GlobalCapability.ADMINISTRATE_SERVER, scope = CapabilityScope.CORE)
 @CommandMetaData(name = "ls-users", description = "List users")
 public final class ListUsersCommand extends SshCommand {
-  private ReviewDb db;
-  private final AccountResolver accountResolver;
+  private final Provider<InternalAccountQuery> accountQueryProvider;
 
   @Option(name = "--active-only", usage = "show only active users")
   private boolean activeOnly = false;
@@ -40,27 +44,38 @@ public final class ListUsersCommand extends SshCommand {
   private boolean inactiveOnly = false;
 
   @Inject
-  ListUsersCommand(ReviewDb db, AccountResolver accountResolver) {
-    this.db = db;
-    this.accountResolver = accountResolver;
+  ListUsersCommand(Provider<InternalAccountQuery> accountQueryProvider) {
+    this.accountQueryProvider = accountQueryProvider;
   }
 
   @Override
   protected void run() throws UnloggedFailure, Failure, Exception {
-    ResultSet<Account> accounts = db.accounts().all();
-    for (Account account : accounts) {
-      if (activeOnly && !account.isActive()) {
-        continue;
-      }
-      if (inactiveOnly && account.isActive()) {
-        continue;
-      }
-      String username = getUsername(account);
+    if (activeOnly && inactiveOnly) {
+      throw die("--active-only and --inactive-only are mutually exclusive");
+    }
+
+    Predicate<AccountState> queryPredicate;
+    if (activeOnly) {
+      queryPredicate = AccountPredicates.isActive();
+    } else if (inactiveOnly) {
+      queryPredicate = AccountPredicates.isNotActive();
+    } else {
+      // This is a work-around to get all the account from the index, querying
+      // active and inactive users returns all the users. Another option is to
+      // use the Accounts class which will list all the account ids from notedb
+      // and then query the secondary index for each user but this way less
+      // efficient.
+      queryPredicate =
+          Predicate.or(AccountPredicates.isActive(),
+              AccountPredicates.isNotActive());
+    }
+    for (AccountState accountState : accountQueryProvider.get().query(queryPredicate)) {
+      Account account = accountState.getAccount();
       String out =
           new StringBuilder()
               .append(account.getId().toString())
               .append(" |")
-              .append(Strings.isNullOrEmpty(username) ? "" : " " + username)
+              .append(Strings.isNullOrEmpty(account.getUserName()) ? "" : " " + account.getUserName())
               .append(" |")
               .append(
                   Strings.isNullOrEmpty(account.getFullName()) ? "" : " " + account.getFullName())
@@ -74,11 +89,5 @@ public final class ListUsersCommand extends SshCommand {
               .toString();
       stdout.println(out);
     }
-  }
-
-  private String getUsername(Account account) throws Exception {
-    String id = account.getId().toString();
-    Account accountFromResolver = accountResolver.find(db, id);
-    return accountFromResolver == null ? null : accountFromResolver.getUserName();
   }
 }
