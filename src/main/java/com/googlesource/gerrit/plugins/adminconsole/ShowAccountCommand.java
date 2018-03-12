@@ -25,11 +25,12 @@ import com.google.gerrit.reviewdb.client.Account.Id;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.server.account.AccountResource;
-import com.google.gerrit.server.account.GetGroups;
-import com.google.gerrit.server.account.GetSshKeys;
+import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.externalids.ExternalId;
 import com.google.gerrit.server.account.externalids.ExternalIds;
 import com.google.gerrit.server.permissions.PermissionBackendException;
+import com.google.gerrit.server.restapi.account.GetGroups;
+import com.google.gerrit.server.restapi.account.GetSshKeys;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.inject.Inject;
@@ -67,6 +68,7 @@ public final class ShowAccountCommand extends SshCommand {
   private final IdentifiedUser.GenericFactory userFactory;
   private final Provider<GetSshKeys> getSshKeys;
   private final ExternalIds externalIds;
+  private final AccountState accountState;
 
   @Inject
   ShowAccountCommand(
@@ -74,12 +76,14 @@ public final class ShowAccountCommand extends SshCommand {
       Provider<GetGroups> accountGetGroups,
       IdentifiedUser.GenericFactory userFactory,
       Provider<GetSshKeys> getSshKeys,
-      ExternalIds externalIds) {
+      ExternalIds externalIds,
+      AccountState accountState) {
     this.accountResolver = accountResolver;
     this.accountGetGroups = accountGetGroups;
     this.userFactory = userFactory;
     this.getSshKeys = getSshKeys;
     this.externalIds = externalIds;
+    this.accountState = accountState;
   }
 
   @Override
@@ -119,7 +123,7 @@ public final class ShowAccountCommand extends SshCommand {
       stdout.println("Full name:         " + account.getFullName());
       stdout.println("Account Id:        " + id.toString());
       stdout.println("Preferred Email:   " + account.getPreferredEmail());
-      stdout.println("User Name:         " + account.getUserName());
+      stdout.println("User Name:         " + accountState.getUserName().get());
       stdout.println("Active:            " + account.isActive());
       stdout.println("Registered on:     " + account.getRegisteredOn());
 
