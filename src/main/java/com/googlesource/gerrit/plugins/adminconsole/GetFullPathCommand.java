@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 package com.googlesource.gerrit.plugins.adminconsole;
 
 import static com.google.gerrit.sshd.CommandMetaData.Mode.MASTER_OR_SLAVE;
@@ -21,18 +20,20 @@ import com.google.gerrit.common.data.GlobalCapability;
 import com.google.gerrit.extensions.annotations.CapabilityScope;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.server.git.GitRepositoryManager;
+import com.google.gerrit.server.git.LocalDiskRepositoryManager;
+import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
-import com.google.gerrit.server.git.LocalDiskRepositoryManager;
-import com.google.gerrit.server.git.GitRepositoryManager;
-import com.google.gerrit.server.project.ProjectCache;
 import com.google.inject.Inject;
-
 import org.eclipse.jgit.lib.Constants;
 import org.kohsuke.args4j.Argument;
 
 @RequiresCapability(value = GlobalCapability.ADMINISTRATE_SERVER, scope = CapabilityScope.CORE)
-@CommandMetaData(runsAt = MASTER_OR_SLAVE, name = "get-path", description = "Gets the full path of a repository")
+@CommandMetaData(
+    runsAt = MASTER_OR_SLAVE,
+    name = "get-path",
+    description = "Gets the full path of a repository")
 public final class GetFullPathCommand extends SshCommand {
 
   @Argument(index = 0, required = true, metaVar = "PROJECT", usage = "Name of the project")
@@ -52,13 +53,14 @@ public final class GetFullPathCommand extends SshCommand {
   @Override
   protected void run() throws UnloggedFailure {
     if (localDiskRepositoryManager == null) {
-      throw new UnloggedFailure(1,
-          "Command only works with disk based repository managers");
+      throw new UnloggedFailure(1, "Command only works with disk based repository managers");
     }
     Project.NameKey nameKey = new Project.NameKey(projectName);
     if (projectCache.get(nameKey) != null) {
-      stdout.println(localDiskRepositoryManager.getBasePath(nameKey)
-          .resolve(nameKey.get().concat(Constants.DOT_GIT_EXT)));
+      stdout.println(
+          localDiskRepositoryManager
+              .getBasePath(nameKey)
+              .resolve(nameKey.get().concat(Constants.DOT_GIT_EXT)));
     } else {
       throw new UnloggedFailure(1, "Repository not found");
     }

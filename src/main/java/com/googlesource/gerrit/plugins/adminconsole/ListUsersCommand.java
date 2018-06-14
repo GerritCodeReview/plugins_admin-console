@@ -26,10 +26,9 @@ import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.ResultSet;
 import com.google.inject.Inject;
-
 import org.kohsuke.args4j.Option;
 
-@RequiresCapability(value=GlobalCapability.ADMINISTRATE_SERVER, scope=CapabilityScope.CORE)
+@RequiresCapability(value = GlobalCapability.ADMINISTRATE_SERVER, scope = CapabilityScope.CORE)
 @CommandMetaData(name = "ls-users", description = "List users")
 public final class ListUsersCommand extends SshCommand {
   private ReviewDb db;
@@ -42,8 +41,7 @@ public final class ListUsersCommand extends SshCommand {
   private boolean inactiveOnly = false;
 
   @Inject
-  ListUsersCommand(ReviewDb db,
-      AccountResolver accountResolver) {
+  ListUsersCommand(ReviewDb db, AccountResolver accountResolver) {
     this.db = db;
     this.accountResolver = accountResolver;
   }
@@ -59,25 +57,22 @@ public final class ListUsersCommand extends SshCommand {
         continue;
       }
       String username = getUsername(account);
-      String out = new StringBuilder()
-        .append(account.getId().toString())
-        .append(" |")
-        .append(Strings.isNullOrEmpty(username)
-            ? ""
-            : " " + username)
-        .append(" |")
-        .append(Strings.isNullOrEmpty(account.getFullName())
-            ? ""
-            : " " + account.getFullName())
-        .append(" |")
-        .append(Strings.isNullOrEmpty(account.getPreferredEmail())
-            ? ""
-            : " " + account.getPreferredEmail())
-        .append(" |")
-        .append(account.isActive()
-            ? " active"
-            : " inactive")
-        .toString();
+      String out =
+          new StringBuilder()
+              .append(account.getId().toString())
+              .append(" |")
+              .append(Strings.isNullOrEmpty(username) ? "" : " " + username)
+              .append(" |")
+              .append(
+                  Strings.isNullOrEmpty(account.getFullName()) ? "" : " " + account.getFullName())
+              .append(" |")
+              .append(
+                  Strings.isNullOrEmpty(account.getPreferredEmail())
+                      ? ""
+                      : " " + account.getPreferredEmail())
+              .append(" |")
+              .append(account.isActive() ? " active" : " inactive")
+              .toString();
       stdout.println(out);
     }
   }
@@ -85,7 +80,6 @@ public final class ListUsersCommand extends SshCommand {
   private String getUsername(Account account) throws OrmException {
     String id = account.getId().toString();
     Account accountFromResolver = accountResolver.find(db, id);
-    return accountFromResolver == null ? null
-        : accountFromResolver.getUserName();
+    return accountFromResolver == null ? null : accountFromResolver.getUserName();
   }
 }
