@@ -23,8 +23,8 @@ import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.extensions.common.GroupInfo;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.Account.Id;
-import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.server.account.AccountResource;
@@ -36,24 +36,27 @@ import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-@RequiresCapability(value=GlobalCapability.ADMINISTRATE_SERVER, scope=CapabilityScope.CORE)
-@CommandMetaData(name = "show-repo-account-access", description = "Displays user's access on a specific repository")
+@RequiresCapability(value = GlobalCapability.ADMINISTRATE_SERVER, scope = CapabilityScope.CORE)
+@CommandMetaData(
+    name = "show-repo-account-access",
+    description = "Displays user's access on a specific repository")
 public final class ShowRepoAccountAccessCommand extends SshCommand {
 
   @Argument(usage = "project to show access for?")
   private String projectName = "";
 
-  @Option(name = "--user", usage = "User information to find: LastName,\\ Firstname,  email@address.com, account id or an user name. "
-      + "Be sure to double-escape spaces, for example: \"show-repo-account-access All-Projects --user Last,\\\\ First\"")
+  @Option(
+      name = "--user",
+      usage =
+          "User information to find: LastName,\\ Firstname,  email@address.com, account id or an user name. "
+              + "Be sure to double-escape spaces, for example: \"show-repo-account-access All-Projects --user Last,\\\\ First\"")
   private String name = "";
 
   @Option(name = "-w", usage = "display without line width truncation")
@@ -96,14 +99,16 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
     }
 
     if (name.isEmpty()) {
-      throw new UnloggedFailure(1,
+      throw new UnloggedFailure(
+          1,
           "You need to tell me who to find:  LastName,\\\\ Firstname, email@address.com, account id or an user name.  "
               + "Be sure to double-escape spaces, for example: \"show-repo-account-access All-Projects --user Last,\\\\ First\"");
     }
     try (ReviewDb db = schema.open()) {
       Set<Id> idList = accountResolver.findAll(db, name);
       if (idList.isEmpty()) {
-        throw new UnloggedFailure(1,
+        throw new UnloggedFailure(
+            1,
             "No accounts found for your query: \""
                 + name
                 + "\""
@@ -126,8 +131,7 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
           // Need to know what groups the user is in. This is not a great
           // solution, but it does work.
           List<GroupInfo> groupInfos =
-              accountGetGroups.get().apply(
-                  new AccountResource(userFactory.create(id)));
+              accountGetGroups.get().apply(new AccountResource(userFactory.create(id)));
           HashSet<String> groupHash = new HashSet<>();
 
           for (GroupInfo groupInfo : groupInfos) {
@@ -136,8 +140,7 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
 
           for (AccessSection accessSection : config.getAccessSections()) {
             StringBuilder sb = new StringBuilder();
-            sb.append((String.format(sectionNameFormatter, accessSection
-                .getName().toString())));
+            sb.append((String.format(sectionNameFormatter, accessSection.getName().toString())));
             // This is a solution to prevent displaying a section heading unless
             // the user has permissions for it
             // not the best solution, but I haven't been able to find
@@ -150,11 +153,14 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
 
                 if (groupHash.contains(rule.getGroup().getName())) {
                   sb.append(String.format(ruleNameFormatter, permission.getName()));
-                  sb.append(String.format(permissionNameFormatter,
-                      (!rule.getMin().equals(rule.getMax())) ? "" + rule.getMin() + " "
-                          + rule.getMax() : rule.getAction(),
-                      (permission.getExclusiveGroup() ? "EXCLUSIVE" : ""),
-                      format(rule.getGroup().getName())));
+                  sb.append(
+                      String.format(
+                          permissionNameFormatter,
+                          (!rule.getMin().equals(rule.getMax()))
+                              ? "" + rule.getMin() + " " + rule.getMax()
+                              : rule.getAction(),
+                          (permission.getExclusiveGroup() ? "EXCLUSIVE" : ""),
+                          format(rule.getGroup().getName())));
                   userHasPermissionsInSection = true;
                 }
               }
@@ -166,7 +172,6 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
               userHasPermissionsInProject = true;
             }
           }
-
 
           if (!userHasPermissionsInProject) {
             stdout.println("  No access found for this user on this repository");
