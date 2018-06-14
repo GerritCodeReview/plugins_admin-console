@@ -22,6 +22,30 @@
       "revId": "b14677336c56c800fecd71e08641fb9838698b8e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c6a191e_3b6d0671",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-06-14T00:41:45Z",
+      "side": 1,
+      "message": "It\u0027s not strictly necessary; the main reason was to make sure it is still building.",
+      "parentUuid": "e8ab0a32_169eb95f",
+      "range": {
+        "startLine": 7,
+        "startChar": 48,
+        "endLine": 7,
+        "endChar": 60
+      },
+      "revId": "b14677336c56c800fecd71e08641fb9838698b8e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
