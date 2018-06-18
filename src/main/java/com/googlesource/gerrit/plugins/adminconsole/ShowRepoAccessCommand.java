@@ -34,9 +34,8 @@ import org.kohsuke.args4j.Option;
 
 @RequiresCapability(value = GlobalCapability.ADMINISTRATE_SERVER, scope = CapabilityScope.CORE)
 @CommandMetaData(
-  name = "show-repo-access",
-  description = "Displays access on a specific repository"
-)
+    name = "show-repo-access",
+    description = "Displays access on a specific repository")
 public final class ShowRepoAccessCommand extends SshCommand {
 
   @Argument(usage = "project to show access for?")

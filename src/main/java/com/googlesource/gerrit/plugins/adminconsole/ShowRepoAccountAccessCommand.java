@@ -43,20 +43,18 @@ import org.kohsuke.args4j.Option;
 
 @RequiresCapability(value = GlobalCapability.ADMINISTRATE_SERVER, scope = CapabilityScope.CORE)
 @CommandMetaData(
-  name = "show-repo-account-access",
-  description = "Displays user's access on a specific repository"
-)
+    name = "show-repo-account-access",
+    description = "Displays user's access on a specific repository")
 public final class ShowRepoAccountAccessCommand extends SshCommand {
 
   @Argument(usage = "project to show access for?")
   private String projectName = "";
 
   @Option(
-    name = "--user",
-    usage =
-        "User information to find: LastName,\\ Firstname,  email@address.com, account id or an user name. "
-            + "Be sure to double-escape spaces, for example: \"show-repo-account-access All-Projects --user Last,\\\\ First\""
-  )
+      name = "--user",
+      usage =
+          "User information to find: LastName,\\ Firstname,  email@address.com, account id or an user name. "
+              + "Be sure to double-escape spaces, for example: \"show-repo-account-access All-Projects --user Last,\\\\ First\"")
   private String name = "";
 
   @Option(name = "-w", usage = "display without line width truncation")
