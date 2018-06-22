@@ -15,10 +15,10 @@ DESCRIPTION
 -----------
 Get the full path of an existing repository.
 
-OPTIONS
+ARGUMENTS
 -------
 `repository`
-> Repository to show access for
+> Repository to get the full path for
 
 ACCESS
 ------
