@@ -13,7 +13,8 @@ SYNOPSIS
 
 DESCRIPTION
 -----------
-Get the full path of an existing repository.
+Get the full path of a repository. If the repository does not exist, the path
+returned is the one where the repository would be if it gets created.
 
 ARGUMENTS
 -------

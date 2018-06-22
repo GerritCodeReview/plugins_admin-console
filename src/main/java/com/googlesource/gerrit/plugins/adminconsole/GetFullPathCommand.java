@@ -40,14 +40,12 @@ public final class GetFullPathCommand extends SshCommand {
   private String projectName = "";
 
   private LocalDiskRepositoryManager localDiskRepositoryManager;
-  private ProjectCache projectCache;
 
   @Inject
   GetFullPathCommand(GitRepositoryManager grm, ProjectCache pc) {
     if (grm instanceof LocalDiskRepositoryManager) {
       localDiskRepositoryManager = (LocalDiskRepositoryManager) grm;
     }
-    projectCache = pc;
   }
 
   @Override
@@ -56,13 +54,9 @@ public final class GetFullPathCommand extends SshCommand {
       throw new UnloggedFailure(1, "Command only works with disk based repository managers");
     }
     Project.NameKey nameKey = new Project.NameKey(projectName);
-    if (projectCache.get(nameKey) != null) {
-      stdout.println(
-          localDiskRepositoryManager
-              .getBasePath(nameKey)
-              .resolve(nameKey.get().concat(Constants.DOT_GIT_EXT)));
-    } else {
-      throw new UnloggedFailure(1, "Repository not found");
-    }
+    stdout.println(
+        localDiskRepositoryManager
+            .getBasePath(nameKey)
+            .resolve(nameKey.get().concat(Constants.DOT_GIT_EXT)));
   }
 }
