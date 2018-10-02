@@ -48,9 +48,8 @@ import org.kohsuke.args4j.Option;
 public final class ShowAccountCommand extends SshCommand {
 
   @Argument(
-    usage =
-        "User information to find: LastName,\\ Firstname,  email@address.com, account id or an user name.  Be sure to double-escape spaces, for example: \"show-account Last,\\\\ First\""
-  )
+      usage =
+          "User information to find: LastName,\\ Firstname,  email@address.com, account id or an user name.  Be sure to double-escape spaces, for example: \"show-account Last,\\\\ First\"")
   private String name = "";
 
   @Option(name = "--show-groups", usage = "show group membership by user?")

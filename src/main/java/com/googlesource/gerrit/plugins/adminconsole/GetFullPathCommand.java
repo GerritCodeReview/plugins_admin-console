@@ -31,10 +31,9 @@ import org.kohsuke.args4j.Argument;
 
 @RequiresCapability(value = GlobalCapability.ADMINISTRATE_SERVER, scope = CapabilityScope.CORE)
 @CommandMetaData(
-  runsAt = MASTER_OR_SLAVE,
-  name = "get-path",
-  description = "Gets the full path of a repository"
-)
+    runsAt = MASTER_OR_SLAVE,
+    name = "get-path",
+    description = "Gets the full path of a repository")
 public final class GetFullPathCommand extends SshCommand {
 
   @Argument(index = 0, required = true, metaVar = "PROJECT", usage = "Name of the project")
