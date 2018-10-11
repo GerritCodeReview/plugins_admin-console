@@ -22,7 +22,6 @@ import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.LocalDiskRepositoryManager;
-import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.inject.Inject;
@@ -42,7 +41,7 @@ public final class GetFullPathCommand extends SshCommand {
   private LocalDiskRepositoryManager localDiskRepositoryManager;
 
   @Inject
-  GetFullPathCommand(GitRepositoryManager grm, ProjectCache pc) {
+  GetFullPathCommand(GitRepositoryManager grm) {
     if (grm instanceof LocalDiskRepositoryManager) {
       localDiskRepositoryManager = (LocalDiskRepositoryManager) grm;
     }
