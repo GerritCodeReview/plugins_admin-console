@@ -16,6 +16,24 @@
       "revId": "8099e8e054a10d6d98374ad68ebbb5ecf056aac3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a6ff8bd_663d6933",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-10-12T04:04:10Z",
+      "side": 1,
+      "message": "I\u0027d prefer not to amend this, because I\u0027ll then also have to amend the other ~20 commits on the other plugins.",
+      "parentUuid": "074b955e_f64beae2",
+      "revId": "8099e8e054a10d6d98374ad68ebbb5ecf056aac3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
