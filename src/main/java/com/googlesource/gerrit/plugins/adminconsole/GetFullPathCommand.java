@@ -22,7 +22,6 @@ import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.LocalDiskRepositoryManager;
-import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.inject.Inject;
@@ -40,14 +39,12 @@ public final class GetFullPathCommand extends SshCommand {
   private String projectName = "";
 
   private LocalDiskRepositoryManager localDiskRepositoryManager;
-  private ProjectCache projectCache;
 
   @Inject
-  GetFullPathCommand(GitRepositoryManager grm, ProjectCache pc) {
+  GetFullPathCommand(GitRepositoryManager grm) {
     if (grm instanceof LocalDiskRepositoryManager) {
       localDiskRepositoryManager = (LocalDiskRepositoryManager) grm;
     }
-    projectCache = pc;
   }
 
   @Override
@@ -56,13 +53,9 @@ public final class GetFullPathCommand extends SshCommand {
       throw new UnloggedFailure(1, "Command only works with disk based repository managers");
     }
     Project.NameKey nameKey = new Project.NameKey(projectName);
-    if (projectCache.get(nameKey) != null) {
-      stdout.println(
-          localDiskRepositoryManager
-              .getBasePath(nameKey)
-              .resolve(nameKey.get().concat(Constants.DOT_GIT_EXT)));
-    } else {
-      throw new UnloggedFailure(1, "Repository not found");
-    }
+    stdout.println(
+        localDiskRepositoryManager
+            .getBasePath(nameKey)
+            .resolve(nameKey.get().concat(Constants.DOT_GIT_EXT)));
   }
 }
