@@ -83,7 +83,7 @@ public final class ShowRepoAccessCommand extends SshCommand {
             stdout.print(
                 String.format(
                     permissionNameFormatter,
-                    (!rule.getMin().equals(rule.getMax()))
+                    (rule.getMin() != rule.getMax())
                         ? "" + rule.getMin() + " " + rule.getMax()
                         : rule.getAction(),
                     (permission.getExclusiveGroup() ? "EXCLUSIVE" : ""),
