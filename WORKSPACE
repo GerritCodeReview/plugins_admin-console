@@ -13,7 +13,7 @@ load_bazlets(
 #    "gerrit_api_maven_local",
 #)
 
-#Load snapshot Plugin API
+# Load snapshot Plugin API
 #gerrit_api_maven_local()
 
 # Release Plugin API
