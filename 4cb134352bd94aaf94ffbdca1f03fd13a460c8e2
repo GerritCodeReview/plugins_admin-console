@@ -22,6 +22,30 @@
       "revId": "4cb134352bd94aaf94ffbdca1f03fd13a460c8e2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cb39abe_3469f91d",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-11-15T15:22:19Z",
+      "side": 1,
+      "message": "Right, it depends on the open change on bazlets.  To test this you have to manually fetch that patch and set local_path on the line below.",
+      "parentUuid": "9738b742_c2e4cf68",
+      "range": {
+        "startLine": 6,
+        "startChar": 14,
+        "endLine": 6,
+        "endChar": 54
+      },
+      "revId": "4cb134352bd94aaf94ffbdca1f03fd13a460c8e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
