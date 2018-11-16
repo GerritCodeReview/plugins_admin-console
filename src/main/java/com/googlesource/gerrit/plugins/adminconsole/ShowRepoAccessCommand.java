@@ -45,11 +45,14 @@ public final class ShowRepoAccessCommand extends SshCommand {
   private boolean wide;
 
   @Inject
-  ShowRepoAccessCommand(MetaDataUpdate.Server metaDataUpdateFactory) {
+  ShowRepoAccessCommand(
+      MetaDataUpdate.Server metaDataUpdateFactory, ProjectConfig.Factory projectConfigFactory) {
     this.metaDataUpdateFactory = metaDataUpdateFactory;
+    this.projectConfigFactory = projectConfigFactory;
   }
 
   private final MetaDataUpdate.Server metaDataUpdateFactory;
+  private final ProjectConfig.Factory projectConfigFactory;
 
   private int columns = 80;
   private int permissionGroupWidth;
@@ -71,7 +74,7 @@ public final class ShowRepoAccessCommand extends SshCommand {
     ProjectConfig config;
     try {
       MetaDataUpdate md = metaDataUpdateFactory.create(nameKey);
-      config = ProjectConfig.read(md);
+      config = projectConfigFactory.read(md);
       for (AccessSection accessSection : config.getAccessSections()) {
 
         stdout.print((String.format(sectionNameFormatter, accessSection.getName().toString())));

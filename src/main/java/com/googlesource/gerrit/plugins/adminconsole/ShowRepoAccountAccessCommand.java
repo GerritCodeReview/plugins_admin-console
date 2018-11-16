@@ -65,17 +65,20 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
       MetaDataUpdate.Server metaDataUpdateFactory,
       Provider<GetGroups> accountGetGroups,
       AccountResolver accountResolver,
-      IdentifiedUser.GenericFactory userFactory) {
+      IdentifiedUser.GenericFactory userFactory,
+      ProjectConfig.Factory projectConfigFactory) {
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.accountGetGroups = accountGetGroups;
     this.accountResolver = accountResolver;
     this.userFactory = userFactory;
+    this.projectConfigFactory = projectConfigFactory;
   }
 
   private final MetaDataUpdate.Server metaDataUpdateFactory;
   private final AccountResolver accountResolver;
   private final Provider<GetGroups> accountGetGroups;
   private final IdentifiedUser.GenericFactory userFactory;
+  private final ProjectConfig.Factory projectConfigFactory;
   private int columns = 80;
   private int permissionGroupWidth;
 
@@ -114,7 +117,7 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
     try {
       MetaDataUpdate md = metaDataUpdateFactory.create(nameKey);
       ProjectConfig config;
-      config = ProjectConfig.read(md);
+      config = projectConfigFactory.read(md);
 
       permissionGroupWidth = wide ? Integer.MAX_VALUE : columns - 9 - 5 - 9;
 
