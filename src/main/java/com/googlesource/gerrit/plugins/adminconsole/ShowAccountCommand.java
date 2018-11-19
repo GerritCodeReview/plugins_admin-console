@@ -23,6 +23,7 @@ import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.Account.Id;
 import com.google.gerrit.server.IdentifiedUser;
+import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.server.account.AccountResource;
 import com.google.gerrit.server.account.AccountState;
@@ -39,6 +40,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.kohsuke.args4j.Argument;
@@ -67,7 +69,7 @@ public final class ShowAccountCommand extends SshCommand {
   private final IdentifiedUser.GenericFactory userFactory;
   private final Provider<GetSshKeys> getSshKeys;
   private final ExternalIds externalIds;
-  private final AccountState accountState;
+  private final AccountCache accountCache;
 
   @Inject
   ShowAccountCommand(
@@ -76,13 +78,13 @@ public final class ShowAccountCommand extends SshCommand {
       IdentifiedUser.GenericFactory userFactory,
       Provider<GetSshKeys> getSshKeys,
       ExternalIds externalIds,
-      AccountState accountState) {
+      AccountCache accountCache) {
     this.accountResolver = accountResolver;
     this.accountGetGroups = accountGetGroups;
     this.userFactory = userFactory;
     this.getSshKeys = getSshKeys;
     this.externalIds = externalIds;
-    this.accountState = accountState;
+    this.accountCache = accountCache;
   }
 
   @Override
@@ -122,7 +124,10 @@ public final class ShowAccountCommand extends SshCommand {
       stdout.println("Full name:         " + account.getFullName());
       stdout.println("Account Id:        " + id.toString());
       stdout.println("Preferred Email:   " + account.getPreferredEmail());
-      stdout.println("User Name:         " + accountState.getUserName().get());
+      Optional<AccountState> accountState = accountCache.get(id);
+      if (accountState.isPresent()) {
+        stdout.println("User Name:         " + accountState.get().getUserName().get());
+      }
       stdout.println("Active:            " + account.isActive());
       stdout.println("Registered on:     " + account.getRegisteredOn());
 
