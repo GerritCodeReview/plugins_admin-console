@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed7fc2b0_c370c9dd",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowAccountCommand.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-11-19T01:25:13Z",
+      "side": 1,
+      "message": "This is wrong.  AccountState is not a singleton, it should be created per account. It cannot be injected, and thus causes a guice creation exception when the plugin is loaded.",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 42
+      },
+      "revId": "111042290a318f373dec2378e177cb0e1af5be67",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
