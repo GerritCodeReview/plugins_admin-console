@@ -21,7 +21,6 @@ import com.google.gerrit.extensions.common.GroupInfo;
 import com.google.gerrit.extensions.common.SshKeyInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.reviewdb.client.Account;
-import com.google.gerrit.reviewdb.client.Account.Id;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountResolver;
@@ -89,7 +88,7 @@ public final class ShowAccountCommand extends SshCommand {
 
   @Override
   public void run() throws UnloggedFailure, Exception {
-    Account account;
+    AccountState account;
 
     if (name.isEmpty()) {
       throw new UnloggedFailure(
@@ -97,7 +96,7 @@ public final class ShowAccountCommand extends SshCommand {
           "You need to tell me who to find:  LastName,\\\\ Firstname, email@address.com, account id or an user name.  "
               + "Be sure to double-escape spaces, for example: \"show-account Last,\\\\ First\"");
     }
-    Set<Id> idList = accountResolver.findAll(name);
+    Set<Account.Id> idList = accountResolver.resolve(name).asIdSet();
     if (idList.isEmpty()) {
       throw new UnloggedFailure(
           1,
@@ -116,26 +115,26 @@ public final class ShowAccountCommand extends SshCommand {
             + "\"");
     stdout.println();
 
-    for (Id id : idList) {
-      account = accountResolver.find(id.toString());
+    for (Account.Id id : idList) {
+      account = accountResolver.resolve(id.toString()).asUnique();
       if (account == null) {
         throw new UnloggedFailure("Account " + id.toString() + " does not exist.");
       }
-      stdout.println("Full name:         " + account.getFullName());
+      stdout.println("Full name:         " + account.getAccount().getFullName());
       stdout.println("Account Id:        " + id.toString());
-      stdout.println("Preferred Email:   " + account.getPreferredEmail());
+      stdout.println("Preferred Email:   " + account.getAccount().getPreferredEmail());
       Optional<AccountState> accountState = accountCache.get(id);
       if (accountState.isPresent()) {
         stdout.println("User Name:         " + accountState.get().getUserName().get());
       }
-      stdout.println("Active:            " + account.isActive());
-      stdout.println("Registered on:     " + account.getRegisteredOn());
+      stdout.println("Active:            " + account.getAccount().isActive());
+      stdout.println("Registered on:     " + account.getAccount().getRegisteredOn());
 
       stdout.println("");
       stdout.println("External Ids:");
       stdout.println(String.format("%-50s %s", "Email Address:", "External Id:"));
       try {
-        for (ExternalId externalId : externalIds.byAccount(account.getId())) {
+        for (ExternalId externalId : externalIds.byAccount(account.getAccount().getId())) {
           stdout.println(
               String.format(
                   "%-50s %s",

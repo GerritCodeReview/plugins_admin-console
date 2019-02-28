@@ -22,11 +22,11 @@ import com.google.gerrit.extensions.annotations.CapabilityScope;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.extensions.common.GroupInfo;
 import com.google.gerrit.reviewdb.client.Account;
-import com.google.gerrit.reviewdb.client.Account.Id;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.server.account.AccountResource;
+import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.git.meta.MetaDataUpdate;
 import com.google.gerrit.server.project.ProjectConfig;
 import com.google.gerrit.server.restapi.account.GetGroups;
@@ -84,7 +84,7 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
 
   @Override
   public void run() throws UnloggedFailure, Failure, Exception {
-    Account account;
+    AccountState account;
     String sectionNameFormatter = "  %-25s\n";
     String ruleNameFormatter = "    %-15s\n ";
     String permissionNameFormatter = "      %5s %9s %s\n";
@@ -102,7 +102,7 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
           "You need to tell me who to find:  LastName,\\\\ Firstname, email@address.com, account id or an user name.  "
               + "Be sure to double-escape spaces, for example: \"show-repo-account-access All-Projects --user Last,\\\\ First\"");
     }
-    Set<Id> idList = accountResolver.findAll(name);
+    Set<Account.Id> idList = accountResolver.resolve(name).asIdSet();
     if (idList.isEmpty()) {
       throw new UnloggedFailure(
           1,
@@ -121,10 +121,10 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
 
       permissionGroupWidth = wide ? Integer.MAX_VALUE : columns - 9 - 5 - 9;
 
-      for (Id id : idList) {
+      for (Account.Id id : idList) {
         userHasPermissionsInProject = false;
-        account = accountResolver.find(id.toString());
-        stdout.println("Full name:         " + account.getFullName());
+        account = accountResolver.resolve(id.toString()).asUnique();
+        stdout.println("Full name:         " + account.getAccount().getFullName());
         // Need to know what groups the user is in. This is not a great
         // solution, but it does work.
         List<GroupInfo> groupInfos =
