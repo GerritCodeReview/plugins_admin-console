@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c9fd6aea_32bc587f",
+        "filename": "src/main/java/com/google/gerrit/plugins/ShowAccountCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1082771
+      },
+      "writtenOn": "2019-04-26T23:42:31Z",
+      "side": 1,
+      "message": "\u003e Could make this final",
+      "parentUuid": "38b474af_48e65f65",
+      "revId": "8947f64b395a5300dabd743c935ca7b7a9d8ee65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98cba03c_0bf05d15",
         "filename": "src/main/java/com/google/gerrit/plugins/ShowAccountCommand.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2013-08-06T14:53:44Z",
       "side": 1,
       "message": "I\u0027d move this to inside the run() method",
+      "revId": "8947f64b395a5300dabd743c935ca7b7a9d8ee65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a38fa959_0b50cfb9",
+        "filename": "src/main/java/com/google/gerrit/plugins/ShowAccountCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1082771
+      },
+      "writtenOn": "2019-04-26T23:42:31Z",
+      "side": 1,
+      "message": "\u003e I\u0027d move this to inside the run() method",
+      "parentUuid": "98cba03c_0bf05d15",
       "revId": "8947f64b395a5300dabd743c935ca7b7a9d8ee65",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -150,6 +186,24 @@
       "writtenOn": "2013-08-06T14:53:44Z",
       "side": 1,
       "message": "Ah, I see you already have regex in mind",
+      "revId": "8947f64b395a5300dabd743c935ca7b7a9d8ee65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "566f00a2_d1079763",
+        "filename": "src/main/resources/Documentation/cmd-show-account.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1082771
+      },
+      "writtenOn": "2019-04-26T23:42:31Z",
+      "side": 1,
+      "message": "1c",
+      "parentUuid": "98cba03c_ebf63110",
       "revId": "8947f64b395a5300dabd743c935ca7b7a9d8ee65",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
