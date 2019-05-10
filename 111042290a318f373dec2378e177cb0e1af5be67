@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "c7f31837_20b1c063",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ListUsersCommand.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-05-10T12:09:24Z",
+      "side": 1,
+      "message": "Should be:\n\n  accountState.getUserName().isPresent()",
+      "range": {
+        "startLine": 74,
+        "startChar": 18,
+        "endLine": 74,
+        "endChar": 73
+      },
+      "revId": "111042290a318f373dec2378e177cb0e1af5be67",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed7fc2b0_c370c9dd",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowAccountCommand.java",
         "patchSetId": 5
