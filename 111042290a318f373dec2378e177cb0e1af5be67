@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "66f0bfa3_a6715094",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ListUsersCommand.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-05-10T12:56:57Z",
+      "side": 1,
+      "message": "Done in https://gerrit-review.googlesource.com/c/plugins/admin-console/+/224132",
+      "parentUuid": "c7f31837_20b1c063",
+      "range": {
+        "startLine": 74,
+        "startChar": 18,
+        "endLine": 74,
+        "endChar": 73
+      },
+      "revId": "111042290a318f373dec2378e177cb0e1af5be67",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed7fc2b0_c370c9dd",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowAccountCommand.java",
         "patchSetId": 5
