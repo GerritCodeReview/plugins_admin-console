@@ -52,7 +52,7 @@ public final class GetFullPathCommand extends SshCommand {
     if (localDiskRepositoryManager == null) {
       throw new UnloggedFailure(1, "Command only works with disk based repository managers");
     }
-    Project.NameKey nameKey = new Project.NameKey(projectName);
+    Project.NameKey nameKey = Project.nameKey(projectName);
     stdout.println(
         localDiskRepositoryManager
             .getBasePath(nameKey)
