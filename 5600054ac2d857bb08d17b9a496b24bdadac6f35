@@ -16,6 +16,24 @@
       "revId": "5600054ac2d857bb08d17b9a496b24bdadac6f35",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a25460ab_5d37cfb9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ListUsersCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-05-10T14:29:03Z",
+      "side": 1,
+      "message": "Thanks, done.\n\nTrying to build with gerrit\u0027s master branch, i get:\n\nBuilding plugins/admin-console/libadmin-console__plugin-class.jar (6 source files) and running annotation processors (AutoAnnotationProcessor, AutoValueProcessor) failed (Exit 1)\nplugins/admin-console/src/main/java/com/googlesource/gerrit/plugins/adminconsole/GetFullPathCommand.java:55: error: NameKey(String) has protected access in NameKey\n    Project.NameKey nameKey \u003d new Project.NameKey(projectName);\n                              ^\nplugins/admin-console/src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowRepoAccessCommand.java:70: error: NameKey(String) has protected access in NameKey\n    Project.NameKey nameKey \u003d new Project.NameKey(projectName);\n                              ^\nplugins/admin-console/src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowRepoAccountAccessCommand.java:115: error: NameKey(String) has protected access in NameKey\n    Project.NameKey nameKey \u003d new Project.NameKey(projectName);\n                              ^\nTarget //plugins/admin-console:admin-console failed to build\nUse --verbose_failures to see the command lines of failed build steps.\nINFO: Elapsed time: 4.281s, Critical Path: 1.60s",
+      "parentUuid": "b1768822_d892ce65",
+      "revId": "5600054ac2d857bb08d17b9a496b24bdadac6f35",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
