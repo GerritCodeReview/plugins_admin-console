@@ -71,7 +71,7 @@ public final class ListUsersCommand extends SshCommand {
               .append(account.getId().toString())
               .append(" |")
               .append(
-                  Strings.isNullOrEmpty(accountState.getUserName().get())
+                  Strings.isNullOrEmpty(accountState.getUserName().isPresent())
                       ? ""
                       : " " + accountState.getUserName().get())
               .append(" |")
