@@ -112,7 +112,7 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
               + " Tip: Try double-escaping spaces, for example: \"--user Last,\\\\ First\"");
     }
 
-    Project.NameKey nameKey = new Project.NameKey(projectName);
+    Project.NameKey nameKey = Project.nameKey(projectName);
 
     try {
       MetaDataUpdate md = metaDataUpdateFactory.create(nameKey);
