@@ -52,6 +52,24 @@
       "revId": "5600054ac2d857bb08d17b9a496b24bdadac6f35",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64755442_e1de9507",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ListUsersCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-05-11T20:16:37Z",
+      "side": 1,
+      "message": "\u003e Fixed in https://gerrit-review.googlesource.com/c/plugins/admin-console/+/224153\n\u003e \n\u003e and also builds successfully with both changes (this one and that one).\n\nThen this change would need to be rebased on that If921112c, which should then move to stable-2.16.",
+      "parentUuid": "441dbb73_c3dea585",
+      "revId": "5600054ac2d857bb08d17b9a496b24bdadac6f35",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
