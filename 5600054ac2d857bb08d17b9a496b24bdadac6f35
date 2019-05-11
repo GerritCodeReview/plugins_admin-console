@@ -88,6 +88,24 @@
       "revId": "5600054ac2d857bb08d17b9a496b24bdadac6f35",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5003c42_41ce1cc4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ListUsersCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-05-11T20:38:25Z",
+      "side": 1,
+      "message": "\u003e Note that this change is on stable-2.16 where as that change is on 3.0/master :)\n\nOf course, and that is what I meant. -As I was under the impression that this change was still failing to build while missing that change in its base. However it does build for me locally now, using both standalone and in-tree.",
+      "parentUuid": "ff27d8d8_182e31f5",
+      "revId": "5600054ac2d857bb08d17b9a496b24bdadac6f35",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
