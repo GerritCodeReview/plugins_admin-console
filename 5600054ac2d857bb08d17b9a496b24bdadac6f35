@@ -70,6 +70,24 @@
       "revId": "5600054ac2d857bb08d17b9a496b24bdadac6f35",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff27d8d8_182e31f5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ListUsersCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-05-11T20:19:55Z",
+      "side": 1,
+      "message": "Note that this change is on stable-2.16 where as that change is on 3.0/master :)",
+      "parentUuid": "64755442_e1de9507",
+      "revId": "5600054ac2d857bb08d17b9a496b24bdadac6f35",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
