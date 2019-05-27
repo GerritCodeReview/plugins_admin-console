@@ -5,7 +5,7 @@ gerrit_plugin(
     srcs = glob(["src/main/java/**/*.java"]),
     manifest_entries = [
         "Gerrit-PluginName: admin-console",
-        "Gerrit-SshModule: com.googlesource.gerrit.plugins.adminconsole.AdminConsoleCommandModule",
+        "Gerrit-SshModule: com.googlesource.gerrit.plugins.adminconsole.SshModule",
         "Implementation-Title: Plugin admin-console",
         "Implementation-URL: https://gerrit-review.googlesource.com/#/admin/projects/plugins/admin-console",
     ],
