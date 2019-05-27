@@ -16,7 +16,7 @@ package com.googlesource.gerrit.plugins.adminconsole;
 
 import com.google.gerrit.sshd.PluginCommandModule;
 
-public class AdminConsoleCommandModule extends PluginCommandModule {
+public class SshModule extends PluginCommandModule {
   @Override
   protected void configureCommands() {
     command(ShowAccountCommand.class);
