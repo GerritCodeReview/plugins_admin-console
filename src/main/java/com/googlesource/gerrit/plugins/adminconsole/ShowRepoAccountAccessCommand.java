@@ -37,7 +37,6 @@ import com.google.inject.Provider;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
@@ -114,68 +113,64 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
 
     Project.NameKey nameKey = Project.nameKey(projectName);
 
-    try {
-      MetaDataUpdate md = metaDataUpdateFactory.create(nameKey);
-      ProjectConfig config;
-      config = projectConfigFactory.read(md);
+    MetaDataUpdate md = metaDataUpdateFactory.create(nameKey);
+    ProjectConfig config;
+    config = projectConfigFactory.read(md);
 
-      permissionGroupWidth = wide ? Integer.MAX_VALUE : columns - 9 - 5 - 9;
+    permissionGroupWidth = wide ? Integer.MAX_VALUE : columns - 9 - 5 - 9;
 
-      for (Account.Id id : idList) {
-        userHasPermissionsInProject = false;
-        account = accountResolver.resolve(id.toString()).asUnique();
-        stdout.println("Full name:         " + account.getAccount().getFullName());
-        // Need to know what groups the user is in. This is not a great
-        // solution, but it does work.
-        List<GroupInfo> groupInfos =
-            accountGetGroups.get().apply(new AccountResource(userFactory.create(id)));
-        HashSet<String> groupHash = new HashSet<>();
+    for (Account.Id id : idList) {
+      userHasPermissionsInProject = false;
+      account = accountResolver.resolve(id.toString()).asUnique();
+      stdout.println("Full name:         " + account.getAccount().fullName());
+      // Need to know what groups the user is in. This is not a great
+      // solution, but it does work.
+      List<GroupInfo> groupInfos =
+          accountGetGroups.get().apply(new AccountResource(userFactory.create(id))).value();
+      HashSet<String> groupHash = new HashSet<>();
 
-        for (GroupInfo groupInfo : groupInfos) {
-          groupHash.add(groupInfo.name);
-        }
+      for (GroupInfo groupInfo : groupInfos) {
+        groupHash.add(groupInfo.name);
+      }
 
-        for (AccessSection accessSection : config.getAccessSections()) {
-          StringBuilder sb = new StringBuilder();
-          sb.append((String.format(sectionNameFormatter, accessSection.getName().toString())));
-          // This is a solution to prevent displaying a section heading unless
-          // the user has permissions for it
-          // not the best solution, but I haven't been able to find
-          // "Is user a member of this group" based on the information I have
-          // in a more efficient manner yet.
-          userHasPermissionsInSection = false;
-          for (Permission permission : accessSection.getPermissions()) {
+      for (AccessSection accessSection : config.getAccessSections()) {
+        StringBuilder sb = new StringBuilder();
+        sb.append((String.format(sectionNameFormatter, accessSection.getName().toString())));
+        // This is a solution to prevent displaying a section heading unless
+        // the user has permissions for it
+        // not the best solution, but I haven't been able to find
+        // "Is user a member of this group" based on the information I have
+        // in a more efficient manner yet.
+        userHasPermissionsInSection = false;
+        for (Permission permission : accessSection.getPermissions()) {
 
-            for (PermissionRule rule : permission.getRules()) {
+          for (PermissionRule rule : permission.getRules()) {
 
-              if (groupHash.contains(rule.getGroup().getName())) {
-                sb.append(String.format(ruleNameFormatter, permission.getName()));
-                sb.append(
-                    String.format(
-                        permissionNameFormatter,
-                        (rule.getMin() != rule.getMax())
-                            ? "" + rule.getMin() + " " + rule.getMax()
-                            : rule.getAction(),
-                        (permission.getExclusiveGroup() ? "EXCLUSIVE" : ""),
-                        format(rule.getGroup().getName())));
-                userHasPermissionsInSection = true;
-              }
+            if (groupHash.contains(rule.getGroup().getName())) {
+              sb.append(String.format(ruleNameFormatter, permission.getName()));
+              sb.append(
+                  String.format(
+                      permissionNameFormatter,
+                      (rule.getMin() != rule.getMax())
+                          ? "" + rule.getMin() + " " + rule.getMax()
+                          : rule.getAction(),
+                      (permission.getExclusiveGroup() ? "EXCLUSIVE" : ""),
+                      format(rule.getGroup().getName())));
+              userHasPermissionsInSection = true;
             }
           }
-
-          if (userHasPermissionsInSection) {
-            stdout.print(sb.toString());
-
-            userHasPermissionsInProject = true;
-          }
         }
 
-        if (!userHasPermissionsInProject) {
-          stdout.println("  No access found for this user on this repository");
+        if (userHasPermissionsInSection) {
+          stdout.print(sb.toString());
+
+          userHasPermissionsInProject = true;
         }
       }
-    } catch (RepositoryNotFoundException e) {
-      throw new UnloggedFailure(1, "Repository not found");
+
+      if (!userHasPermissionsInProject) {
+        stdout.println("  No access found for this user on this repository");
+      }
     }
   }
 

@@ -68,20 +68,19 @@ public final class ListUsersCommand extends SshCommand {
       Account account = accountState.getAccount();
       String out =
           new StringBuilder()
-              .append(account.getId().toString())
+              .append(account.id().toString())
               .append(" |")
               .append(
                   accountState.getUserName().isPresent()
                       ? ""
                       : " " + accountState.getUserName().get())
               .append(" |")
-              .append(
-                  Strings.isNullOrEmpty(account.getFullName()) ? "" : " " + account.getFullName())
+              .append(Strings.isNullOrEmpty(account.fullName()) ? "" : " " + account.fullName())
               .append(" |")
               .append(
-                  Strings.isNullOrEmpty(account.getPreferredEmail())
+                  Strings.isNullOrEmpty(account.preferredEmail())
                       ? ""
-                      : " " + account.getPreferredEmail())
+                      : " " + account.preferredEmail())
               .append(" |")
               .append(account.isActive() ? " active" : " inactive")
               .toString();
