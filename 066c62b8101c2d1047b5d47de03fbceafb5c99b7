@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "adae973d_3cea195a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowRepoAccountAccessCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-09-11T23:17:06Z",
+      "side": 0,
+      "message": "What was throwing this before?",
+      "range": {
+        "startLine": 177,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 5
+      },
+      "revId": "066c62b8101c2d1047b5d47de03fbceafb5c99b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
