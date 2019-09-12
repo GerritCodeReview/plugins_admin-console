@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fcf0125_d4f32af5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-09-12T06:08:04Z",
+      "side": 1,
+      "message": "There was a mistake in this CL, so that the whole series should be reworked. Marking only this change, but my vote applies to the whole Bump Bazlets version series.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 71
+      },
+      "revId": "533fcb6cd788abb09e3070d311588a8f434ff6f3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
