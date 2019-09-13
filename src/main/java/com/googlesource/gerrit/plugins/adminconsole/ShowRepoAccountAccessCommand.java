@@ -124,11 +124,11 @@ public final class ShowRepoAccountAccessCommand extends SshCommand {
       for (Account.Id id : idList) {
         userHasPermissionsInProject = false;
         account = accountResolver.resolve(id.toString()).asUnique();
-        stdout.println("Full name:         " + account.getAccount().getFullName());
+        stdout.println("Full name:         " + account.getAccount().fullName());
         // Need to know what groups the user is in. This is not a great
         // solution, but it does work.
         List<GroupInfo> groupInfos =
-            accountGetGroups.get().apply(new AccountResource(userFactory.create(id)));
+            accountGetGroups.get().apply(new AccountResource(userFactory.create(id))).value();
         HashSet<String> groupHash = new HashSet<>();
 
         for (GroupInfo groupInfo : groupInfos) {

@@ -120,21 +120,21 @@ public final class ShowAccountCommand extends SshCommand {
       if (account == null) {
         throw new UnloggedFailure("Account " + id.toString() + " does not exist.");
       }
-      stdout.println("Full name:         " + account.getAccount().getFullName());
+      stdout.println("Full name:         " + account.getAccount().fullName());
       stdout.println("Account Id:        " + id.toString());
-      stdout.println("Preferred Email:   " + account.getAccount().getPreferredEmail());
+      stdout.println("Preferred Email:   " + account.getAccount().preferredEmail());
       Optional<AccountState> accountState = accountCache.get(id);
       if (accountState.isPresent()) {
         stdout.println("User Name:         " + accountState.get().getUserName().get());
       }
       stdout.println("Active:            " + account.getAccount().isActive());
-      stdout.println("Registered on:     " + account.getAccount().getRegisteredOn());
+      stdout.println("Registered on:     " + account.getAccount().registeredOn());
 
       stdout.println("");
       stdout.println("External Ids:");
       stdout.println(String.format("%-50s %s", "Email Address:", "External Id:"));
       try {
-        for (ExternalId externalId : externalIds.byAccount(account.getAccount().getId())) {
+        for (ExternalId externalId : externalIds.byAccount(account.getAccount().id())) {
           stdout.println(
               String.format(
                   "%-50s %s",
@@ -148,7 +148,7 @@ public final class ShowAccountCommand extends SshCommand {
         stdout.println("Public Keys:");
         List<SshKeyInfo> sshKeys;
         try {
-          sshKeys = getSshKeys.get().apply(new AccountResource(userFactory.create(id)));
+          sshKeys = getSshKeys.get().apply(new AccountResource(userFactory.create(id))).value();
         } catch (AuthException
             | IOException
             | ConfigInvalidException
@@ -174,7 +174,7 @@ public final class ShowAccountCommand extends SshCommand {
                 + (filterGroups == null ? "" : " (Filtering on \"" + filterGroups + "\")")
                 + ":");
         List<GroupInfo> groupInfos =
-            accountGetGroups.get().apply(new AccountResource(userFactory.create(id)));
+            accountGetGroups.get().apply(new AccountResource(userFactory.create(id))).value();
 
         Collections.sort(groupInfos, new CustomComparator());
         for (GroupInfo groupInfo : groupInfos) {
