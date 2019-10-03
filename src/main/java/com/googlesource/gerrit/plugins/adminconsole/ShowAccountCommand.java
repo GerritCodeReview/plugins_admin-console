@@ -120,21 +120,21 @@ public final class ShowAccountCommand extends SshCommand {
       if (account == null) {
         throw new UnloggedFailure("Account " + id.toString() + " does not exist.");
       }
-      stdout.println("Full name:         " + account.getAccount().fullName());
+      stdout.println("Full name:         " + account.account().fullName());
       stdout.println("Account Id:        " + id.toString());
-      stdout.println("Preferred Email:   " + account.getAccount().preferredEmail());
+      stdout.println("Preferred Email:   " + account.account().preferredEmail());
       Optional<AccountState> accountState = accountCache.get(id);
       if (accountState.isPresent()) {
-        stdout.println("User Name:         " + accountState.get().getUserName().get());
+        stdout.println("User Name:         " + accountState.get().userName().get());
       }
-      stdout.println("Active:            " + account.getAccount().isActive());
-      stdout.println("Registered on:     " + account.getAccount().registeredOn());
+      stdout.println("Active:            " + account.account().isActive());
+      stdout.println("Registered on:     " + account.account().registeredOn());
 
       stdout.println("");
       stdout.println("External Ids:");
       stdout.println(String.format("%-50s %s", "Email Address:", "External Id:"));
       try {
-        for (ExternalId externalId : externalIds.byAccount(account.getAccount().id())) {
+        for (ExternalId externalId : externalIds.byAccount(account.account().id())) {
           stdout.println(
               String.format(
                   "%-50s %s",

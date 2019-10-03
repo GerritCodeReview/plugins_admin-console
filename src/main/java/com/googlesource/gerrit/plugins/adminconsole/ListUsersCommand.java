@@ -65,15 +65,13 @@ public final class ListUsersCommand extends SshCommand {
       queryPredicate = Predicate.or(AccountPredicates.isActive(), AccountPredicates.isNotActive());
     }
     for (AccountState accountState : accountQueryProvider.get().query(queryPredicate)) {
-      Account account = accountState.getAccount();
+      Account account = accountState.account();
       String out =
           new StringBuilder()
               .append(account.id().toString())
               .append(" |")
               .append(
-                  accountState.getUserName().isPresent()
-                      ? ""
-                      : " " + accountState.getUserName().get())
+                  accountState.userName().isPresent() ? "" : " " + accountState.userName().get())
               .append(" |")
               .append(Strings.isNullOrEmpty(account.fullName()) ? "" : " " + account.fullName())
               .append(" |")
