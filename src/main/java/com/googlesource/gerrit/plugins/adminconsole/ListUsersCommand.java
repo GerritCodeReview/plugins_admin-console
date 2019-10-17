@@ -16,10 +16,10 @@ package com.googlesource.gerrit.plugins.adminconsole;
 
 import com.google.common.base.Strings;
 import com.google.gerrit.common.data.GlobalCapability;
+import com.google.gerrit.entities.Account;
 import com.google.gerrit.extensions.annotations.CapabilityScope;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.index.query.Predicate;
-import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.query.account.AccountPredicates;
 import com.google.gerrit.server.query.account.InternalAccountQuery;

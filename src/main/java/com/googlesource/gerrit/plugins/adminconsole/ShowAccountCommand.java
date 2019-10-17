@@ -15,12 +15,12 @@
 package com.googlesource.gerrit.plugins.adminconsole;
 
 import com.google.gerrit.common.data.GlobalCapability;
+import com.google.gerrit.entities.Account;
 import com.google.gerrit.extensions.annotations.CapabilityScope;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.extensions.common.GroupInfo;
 import com.google.gerrit.extensions.common.SshKeyInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
-import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountResolver;

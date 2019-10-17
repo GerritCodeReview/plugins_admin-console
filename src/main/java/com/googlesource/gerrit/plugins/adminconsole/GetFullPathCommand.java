@@ -17,9 +17,9 @@ package com.googlesource.gerrit.plugins.adminconsole;
 import static com.google.gerrit.sshd.CommandMetaData.Mode.MASTER_OR_SLAVE;
 
 import com.google.gerrit.common.data.GlobalCapability;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.annotations.CapabilityScope;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
-import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.LocalDiskRepositoryManager;
 import com.google.gerrit.sshd.CommandMetaData;
