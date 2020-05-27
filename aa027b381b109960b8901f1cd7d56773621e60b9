@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29177542_d41ff55a",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-05-27T14:07:23Z",
+      "side": 0,
+      "message": "Can you clarify what happened here? There are two changes: [1] and [2]. The one with: c6656e6a3ed76eb7e6d9a217cbe5d59c415efb9a: [1] was abandoned, but somehow all other changes that reference this SHA1 for all plugins were merged? \n\n* [1] https://gerrit-review.googlesource.com/c/bazlets/+/268849\n* [2] https://gerrit.googlesource.com/bazlets/+/51c1fd2758fcc1b900a80d4ebb037bc373f85d39",
+      "revId": "aa027b381b109960b8901f1cd7d56773621e60b9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
