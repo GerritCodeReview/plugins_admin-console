@@ -16,6 +16,24 @@
       "revId": "aa027b381b109960b8901f1cd7d56773621e60b9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba80e447_cf84bb12",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-05-27T14:16:01Z",
+      "side": 0,
+      "message": "1. David likely by mistake pushed [1] to master and used that commit as bazlets for plugins in 3.1.\n2. He then abandoned [1] and pushed [3] ([2]) instead for that same purpose.\n3. But the plugins were not updated to use [3]\u0027s bazlets; they rather sticked to [1]\u0027s (abandoned since).\n4. So this series is now meant to fix just that.\n\n[3] https://gerrit-review.googlesource.com/c/bazlets/+/269032",
+      "parentUuid": "29177542_d41ff55a",
+      "revId": "aa027b381b109960b8901f1cd7d56773621e60b9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
