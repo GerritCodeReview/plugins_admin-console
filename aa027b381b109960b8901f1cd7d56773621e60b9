@@ -34,6 +34,24 @@
       "revId": "aa027b381b109960b8901f1cd7d56773621e60b9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87f6d33e_7930b75e",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2020-05-28T00:16:14Z",
+      "side": 0,
+      "message": "Yes, this is exactly what happened. I forgot to push the 3.1.5 bazlets change to stable-3.1, and then when I pushed the merge up to master it also pushed the 3.1.5 to master. I should have moved that change instead of abandoning and pushing again. Sorry for the extra work caused.",
+      "parentUuid": "ba80e447_cf84bb12",
+      "revId": "aa027b381b109960b8901f1cd7d56773621e60b9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
