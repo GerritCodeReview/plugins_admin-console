@@ -16,4 +16,4 @@ load(
 gerrit_api()
 
 # Load snapshot Plugin API
-#gerrit_api(version = "3.0.xy-SNAPSHOT")
+#gerrit_api(version = "3.1.xy-SNAPSHOT")
