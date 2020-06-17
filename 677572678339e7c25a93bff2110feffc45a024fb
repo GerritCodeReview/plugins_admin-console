@@ -46,6 +46,30 @@
       "revId": "677572678339e7c25a93bff2110feffc45a024fb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a931acc_20b2d4a3",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-06-17T16:01:35Z",
+      "side": 1,
+      "message": "We could use version agnostic string, something like:\n\n# gerrit_api(\"\u003capi-version\u003e-SNAPSHOT\")\n\nOr even remove it here entirely and document in gerrit core in plugin-dev document or in bazlets REAMDE.",
+      "parentUuid": "89daa6e3_ef0f1348",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 0
+      },
+      "revId": "677572678339e7c25a93bff2110feffc45a024fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
