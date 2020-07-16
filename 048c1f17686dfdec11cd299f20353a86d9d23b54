@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "518722cd_37b145e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-07-16T18:05:04Z",
+      "side": 1,
+      "message": "Verified manually. POST_FAILURE [1] this time. Trying to re-run now.\n\n[1] https://ci.gerritcodereview.com/t/gerrit/buildset/4f1e72a53df44a0ab881637cf7761b91",
+      "revId": "048c1f17686dfdec11cd299f20353a86d9d23b54",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
