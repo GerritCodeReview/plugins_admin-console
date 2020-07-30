@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eedd1fc1_2faf1653",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-07-30T20:11:31Z",
+      "side": 1,
+      "message": "Now, the failure is justified:\n\n  plugins/admin-console/src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowRepoAccessCommand.java:19: error: cannot find symbol\nimport com.google.gerrit.common.data.Permission;\n                                    ^\n  symbol:   class Permission\n  location: package com.google.gerrit.common.data",
+      "revId": "b8cd822db6f955a50ea77506b66622d6949414bc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
