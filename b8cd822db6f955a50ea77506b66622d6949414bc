@@ -16,6 +16,24 @@
       "revId": "b8cd822db6f955a50ea77506b66622d6949414bc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ea9eb2c_63271470",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-07-30T21:35:55Z",
+      "side": 1,
+      "message": "\u003e Now, the failure is justified:\n\u003e \n\u003e   plugins/admin-console/src/main/java/com/googlesource/gerrit/plugins/adminconsole/ShowRepoAccessCommand.java:19: error: cannot find symbol\n\u003e import com.google.gerrit.common.data.Permission;\n\u003e                                     ^\n\u003e   symbol:   class Permission\n\u003e   location: package com.google.gerrit.common.data\n\nDone, downstream.",
+      "parentUuid": "eedd1fc1_2faf1653",
+      "revId": "b8cd822db6f955a50ea77506b66622d6949414bc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
