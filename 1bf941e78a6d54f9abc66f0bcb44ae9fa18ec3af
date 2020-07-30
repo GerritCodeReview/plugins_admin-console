@@ -33,6 +33,42 @@
       "revId": "1bf941e78a6d54f9abc66f0bcb44ae9fa18ec3af",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01025aa8_5eb60080",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-07-30T21:38:12Z",
+      "side": 1,
+      "message": "\u003e @Doug and @Jeff, are you still maintainers for this plugin?\n\u003e I\u0027m asking you so based on your names being listed as such in [1] below:\n\u003e \n\u003e [1] https://www.gerritcodereview.com/plugins.html#active\n\u003e \n\u003e If so, would you be able to help fixing this Verification (build) issue?\n\u003e If not, or meanwhile, I can fix it myself.\n\u003e The thing is, we are trying to involve plugin maintainers in fixing such maintenance issues.\n\u003e -Thanks for letting us know herein.\n\n(Fixed.)",
+      "parentUuid": "2334abe6_8a504622",
+      "revId": "1bf941e78a6d54f9abc66f0bcb44ae9fa18ec3af",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b2c5213_12526b26",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-07-30T21:38:12Z",
+      "side": 1,
+      "message": "\u003e Build failure is justified: Permission was moved to a different package: \n\u003e   java/com/google/gerrit/entities/Permission.java:\n\u003e   \n\u003e ERROR: /home/davido/projects/quota/BUILD:10:14: Building libquota__plugin-class.jar (26 source files) failed (Exit 1)\n\u003e src/main/java/com/googlesource/gerrit/plugins/quota/AccountLimitsFinder.java:18: error: cannot find symbol\n\u003e import com.google.gerrit.entities.GroupDescription;\n\u003e                                  ^\n\u003e   symbol:   class GroupDescription\n\u003e   location: package com.google.gerrit.entities\n\u003e \n\u003e   \n\nDone, downstream.",
+      "parentUuid": "cc8aaf4c_df441126",
+      "revId": "1bf941e78a6d54f9abc66f0bcb44ae9fa18ec3af",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
