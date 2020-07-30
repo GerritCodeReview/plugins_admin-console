@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2334abe6_8a504622",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-07-30T16:21:43Z",
+      "side": 1,
+      "message": "@Doug and @Jeff, are you still maintainers for this plugin?\nI\u0027m asking you so based on your names being listed as such in [1] below:\n\n[1] https://www.gerritcodereview.com/plugins.html#active\n\nIf so, would you be able to help fixing this Verification (build) issue?\nIf not, or meanwhile, I can fix it myself.\nThe thing is, we are trying to involve plugin maintainers in fixing such maintenance issues.\n-Thanks for letting us know herein.",
+      "revId": "1bf941e78a6d54f9abc66f0bcb44ae9fa18ec3af",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
