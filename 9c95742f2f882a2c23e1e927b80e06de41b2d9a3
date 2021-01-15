@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7d0871f_c7b601ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-01-15T18:39:24Z",
+      "side": 1,
+      "message": "I pushed a patch to show how we usually have such commit messages. You might be missing this in your ~/.gitconfig: merge.log \u003d 999 (e.g.).",
+      "revId": "9c95742f2f882a2c23e1e927b80e06de41b2d9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
