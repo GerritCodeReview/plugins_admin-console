@@ -16,6 +16,23 @@
       "message": "I pushed a patch to show how we usually have such commit messages. You might be missing this in your ~/.gitconfig: merge.log \u003d 999 (e.g.).",
       "revId": "9c95742f2f882a2c23e1e927b80e06de41b2d9a3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a510545b_65a96dcb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2021-01-16T16:20:44Z",
+      "side": 1,
+      "message": "Makes sense. Do you want me to re-take the remaining plugins to include it?",
+      "revId": "9c95742f2f882a2c23e1e927b80e06de41b2d9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
