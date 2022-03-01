@@ -50,6 +50,7 @@ import org.kohsuke.args4j.Option;
 public final class ShowAccountCommand extends SshCommand {
 
   @Argument(
+      required = true,
       usage =
           "User information to find: LastName,\\ Firstname,  email@address.com, account id or an user name.  Be sure to double-escape spaces, for example: \"show-account Last,\\\\ First\"")
   private String name = "";
@@ -90,12 +91,6 @@ public final class ShowAccountCommand extends SshCommand {
   public void run() throws UnloggedFailure, Exception {
     AccountState account;
 
-    if (name.isEmpty()) {
-      throw new UnloggedFailure(
-          1,
-          "You need to tell me who to find:  LastName,\\\\ Firstname, email@address.com, account id or an user name.  "
-              + "Be sure to double-escape spaces, for example: \"show-account Last,\\\\ First\"");
-    }
     Set<Account.Id> idList = accountResolver.resolve(name).asIdSet();
     if (idList.isEmpty()) {
       throw new UnloggedFailure(

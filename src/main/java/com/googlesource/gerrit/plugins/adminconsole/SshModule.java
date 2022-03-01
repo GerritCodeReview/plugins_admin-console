@@ -24,5 +24,6 @@ public class SshModule extends PluginCommandModule {
     command(GetFullPathCommand.class);
     command(ShowRepoAccountAccessCommand.class);
     command(ShowRepoAccessCommand.class);
+    command(CheckProjectVisibility.class);
   }
 }
